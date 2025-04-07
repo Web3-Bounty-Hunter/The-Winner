@@ -1,0 +1,30 @@
+{
+  "name": "blockchain-battle",
+  "version": "1.0.0",
+  "description": "区块链战斗游戏合约",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy-all.js",
+    "deploy-bc": "hardhat run scripts/deploy-battle-coin.js",
+    "deploy-swap": "hardhat run scripts/deploy-token-swap.js",
+    "deploy-poker": "hardhat run scripts/deploy-poker.js"
+  },
+  "keywords": [
+    "blockchain",
+    "solidity",
+    "ethereum",
+    "game"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.19.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  }
+} 

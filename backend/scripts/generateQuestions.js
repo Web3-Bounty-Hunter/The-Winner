@@ -18,7 +18,7 @@ program
   .option('-c, --count <number>', '要生成的题目数量', '10')
   .option('-d, --difficulty <list>', '难度级别列表(逗号分隔)', '简单,中等,困难,地狱')
   .option('-t, --topic <list>', '主题列表(逗号分隔)', '区块链基础,智能合约,共识机制,加密货币,去中心化应用')
-  .option('--db <path>', '数据库路径', path.join(__dirname, '../questions.db'))
+  .option('--db <path>', '数据库路径', path.join(__dirname, '../database.sqlite'))
   .option('--delay <ms>', '每个请求之间的延迟(毫秒)', '2000')
   .parse(process.argv);
 
@@ -33,7 +33,7 @@ const delay = parseInt(options.delay, 10);
 
 // API 配置
 const DIFY_API_KEY = process.env.DIFY_API_KEY || 'app-frrUU7gB8BnlhvAGl5AH9Coh';
-const DIFY_API_URL = process.env.DIFY_API_URL || 'https://api.dify.ai';
+const DIFY_API_URL = process.env.DIFY_API_URL || 'https://api.dify.ai/v1';
 
 // 连接数据库
 const db = new sqlite3.Database(dbPath, (err) => {
