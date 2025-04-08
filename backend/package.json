@@ -26,7 +26,11 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "commander": "^13.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "socket.io": "^4.7.2",
+    "sqlite": "^5.1.1",
     "uuid": "^11.1.0"
   }
 }

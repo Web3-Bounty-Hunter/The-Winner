@@ -1,0 +1,425 @@
+# 区块链知识问答游戏 API 文档
+
+## 目录
+1. [认证 API](#认证-api)
+2. [金币管理 API](#金币管理-api)
+3. [题目管理 API](#题目管理-api)
+4. [WebSocket 实时通信](#websocket-实时通信)
+
+## 认证 API
+
+### 注册新用户
+- **URL**: `/api/auth/register`
+- **方法**: `POST`
+- **描述**: 创建新用户账号，初始金币为100
+- **请求体**:
+  ```json
+  {
+    "username": "用户名",
+    "password": "密码",
+    "email": "邮箱地址(可选)"
+  }
+  ```
+- **成功响应** (201):
+  ```json
+  {
+    "message": "注册成功",
+    "user": {
+      "id": 1,
+      "username": "用户名",
+      "email": "邮箱地址",
+      "coins": 100
+    },
+    "token": "JWT令牌"
+  }
+  ```
+- **错误响应**:
+  - 400: 缺少必填字段
+  - 409: 用户名已被使用
+  - 500: 服务器错误
+
+### 用户登录
+- **URL**: `/api/auth/login`
+- **方法**: `POST`
+- **描述**: 用户登录并获取JWT令牌
+- **请求体**:
+  ```json
+  {
+    "username": "用户名",
+    "password": "密码"
+  }
+  ```
+- **成功响应** (200):
+  ```json
+  {
+    "message": "登录成功",
+    "user": {
+      "id": 1,
+      "username": "用户名",
+      "email": "邮箱地址",
+      "coins": 100
+    },
+    "token": "JWT令牌"
+  }
+  ```
+- **错误响应**:
+  - 400: 缺少必填字段
+  - 401: 用户名或密码不正确
+  - 500: 服务器错误
+
+### 获取当前用户信息
+- **URL**: `/api/auth/me`
+- **方法**: `GET`
+- **描述**: 获取当前登录用户的详细信息
+- **请求头**: `Authorization: Bearer JWT令牌`
+- **成功响应** (200):
+  ```json
+  {
+    "user": {
+      "id": 1,
+      "username": "用户名",
+      "email": "邮箱地址",
+      "coins": 100,
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "last_login": "2023-01-02T00:00:00.000Z"
+    }
+  }
+  ```
+- **错误响应**:
+  - 401: 未授权或令牌无效
+  - 404: 用户不存在
+  - 500: 服务器错误
+
+## 金币管理 API
+
+### 获取金币余额
+- **URL**: `/api/coins/balance`
+- **方法**: `GET`
+- **描述**: 获取当前用户的金币余额
+- **请求头**: `Authorization: Bearer JWT令牌`
+- **成功响应** (200):
+  ```json
+  {
+    "coins": 100
+  }
+  ```
+- **错误响应**:
+  - 401: 未授权或令牌无效
+  - 404: 用户不存在
+  - 500: 服务器错误
+
+### 获取交易记录
+- **URL**: `/api/coins/transactions`
+- **方法**: `GET`
+- **描述**: 获取当前用户的金币交易记录
+- **请求头**: `Authorization: Bearer JWT令牌`
+- **查询参数**:
+  - `limit`: 每页记录数 (默认10)
+  - `offset`: 偏移量 (默认0)
+- **成功响应** (200):
+  ```json
+  {
+    "transactions": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "amount": 50,
+        "type": "game_reward",
+        "description": "游戏排名第1，获得50金币",
+        "created_at": "2023-01-01T00:00:00.000Z"
+      },
+      {
+        "id": 2,
+        "user_id": 1,
+        "amount": -10,
+        "type": "bet",
+        "description": "在房间 abc123 下注",
+        "created_at": "2023-01-02T00:00:00.000Z"
+      }
+    ]
+  }
+  ```
+- **错误响应**:
+  - 401: 未授权或令牌无效
+  - 500: 服务器错误
+
+## 题目管理 API
+
+### 获取题目
+- **URL**: `/api/questions`
+- **方法**: `GET`
+- **描述**: 获取指定主题和难度的题目
+- **查询参数**:
+  - `topic`: 题目主题 (必填)
+  - `difficulty`: 难度级别 (必填)
+  - `count`: 题目数量 (默认10)
+- **成功响应** (200):
+  ```json
+  [
+    {
+      "id": 1,
+      "question": "什么是区块链？",
+      "options": ["一种加密货币", "一种分布式账本技术", "一种编程语言", "一种云存储服务"],
+      "correctAnswer": "一种分布式账本技术",
+      "explanation": "区块链是一种分布式账本技术，它允许多方安全地记录交易和管理信息，无需中央权威机构。",
+      "source": "模拟数据",
+      "difficulty": "简单",
+      "topic": "blockchain-basics"
+    }
+  ]
+  ```
+- **错误响应**:
+  - 400: 缺少必要参数
+  - 404: 未找到符合条件的题目
+  - 500: 服务器错误
+
+### 获取题目类别
+- **URL**: `/api/questions/categories`
+- **方法**: `GET`
+- **描述**: 获取所有题目类别和难度级别
+- **成功响应** (200):
+  ```json
+  {
+    "topics": [
+      {
+        "id": "blockchain-basics",
+        "name": "区块链基础",
+        "difficulties": ["简单", "中等", "困难", "地狱"]
+      },
+      {
+        "id": "smart-contracts",
+        "name": "智能合约",
+        "difficulties": ["简单", "中等", "困难", "地狱"]
+      }
+    ]
+  }
+  ```
+- **错误响应**:
+  - 500: 服务器错误
+
+### 生成并添加题目 (管理员功能)
+- **URL**: `/api/questions`
+- **方法**: `POST`
+- **描述**: 生成新题目并添加到题库
+- **请求头**: `Authorization: Bearer JWT令牌`
+- **请求体**:
+  ```json
+  {
+    "topic": "blockchain-basics",
+    "difficulty": "简单",
+    "testMode": true
+  }
+  ```
+- **成功响应** (200):
+  ```json
+  {
+    "success": true,
+    "message": "题目已添加到题库",
+    "id": 1
+  }
+  ```
+- **错误响应**:
+  - 401: 未授权或令牌无效
+  - 403: 没有管理员权限
+  - 500: 服务器错误
+
+## WebSocket 实时通信
+
+### 连接WebSocket
+- **URL**: `ws://服务器地址:端口`
+- **描述**: 建立WebSocket连接
+
+### 认证
+- **发送消息**:
+  ```json
+  {
+    "type": "authenticate",
+    "token": "JWT令牌"
+  }
+  ```
+- **接收消息** (成功):
+  ```json
+  {
+    "type": "authenticated",
+    "userId": 1,
+    "username": "用户名",
+    "coins": 100
+  }
+  ```
+- **接收消息** (失败):
+  ```json
+  {
+    "type": "error",
+    "message": "认证失败"
+  }
+  ```
+
+### 创建房间
+- **发送消息**:
+  ```json
+  {
+    "type": "createRoom",
+    "options": {
+      "topic": "blockchain-basics",
+      "difficulty": "简单",
+      "questionCount": 10,
+      "timePerQuestion": 30
+    }
+  }
+  ```
+- **接收消息** (成功):
+  ```json
+  {
+    "type": "room_created",
+    "roomId": "abc123",
+    "options": {
+      "topic": "blockchain-basics",
+      "difficulty": "简单",
+      "questionCount": 10,
+      "timePerQuestion": 30
+    }
+  }
+  ```
+
+### 加入房间
+- **发送消息**:
+  ```json
+  {
+    "type": "joinRoom",
+    "roomId": "abc123"
+  }
+  ```
+- **接收消息** (成功):
+  ```json
+  {
+    "type": "room_joined",
+    "roomId": "abc123",
+    "players": [
+      {
+        "id": "player1",
+        "username": "用户1"
+      },
+      {
+        "id": "player2",
+        "username": "用户2"
+      }
+    ],
+    "options": {
+      "topic": "blockchain-basics",
+      "difficulty": "简单",
+      "questionCount": 10,
+      "timePerQuestion": 30
+    }
+  }
+  ```
+
+### 开始游戏
+- **发送消息** (仅房主):
+  ```json
+  {
+    "type": "startGame"
+  }
+  ```
+- **接收消息** (所有玩家):
+  ```json
+  {
+    "type": "game_started",
+    "question": {
+      "id": 1,
+      "question": "什么是区块链？",
+      "options": ["一种加密货币", "一种分布式账本技术", "一种编程语言", "一种云存储服务"],
+      "timeLimit": 30
+    },
+    "questionNumber": 1,
+    "totalQuestions": 10
+  }
+  ```
+
+### 提交答案
+- **发送消息**:
+  ```json
+  {
+    "type": "answer",
+    "questionId": 1,
+    "answer": "一种分布式账本技术"
+  }
+  ```
+- **接收消息** (个人):
+  ```json
+  {
+    "type": "answer_result",
+    "questionId": 1,
+    "isCorrect": true,
+    "points": 10,
+    "correctAnswer": "一种分布式账本技术",
+    "explanation": "区块链是一种分布式账本技术，它允许多方安全地记录交易和管理信息，无需中央权威机构。"
+  }
+  ```
+- **接收消息** (所有玩家):
+  ```json
+  {
+    "type": "player_answered",
+    "playerId": "player1",
+    "questionId": 1,
+    "isCorrect": true,
+    "points": 10
+  }
+  ```
+
+### 下注
+- **发送消息**:
+  ```json
+  {
+    "type": "bet",
+    "amount": 10
+  }
+  ```
+- **接收消息** (成功):
+  ```json
+  {
+    "type": "bet_placed",
+    "amount": 10,
+    "remainingCoins": 90
+  }
+  ```
+
+### 游戏结束
+- **接收消息**:
+  ```json
+  {
+    "type": "game_over",
+    "rankings": [
+      {
+        "playerId": "player1",
+        "username": "用户1",
+        "score": 80
+      },
+      {
+        "playerId": "player2",
+        "username": "用户2",
+        "score": 60
+      }
+    ],
+    "duration": 300
+  }
+  ```
+
+### 错误消息
+- **接收消息**:
+  ```json
+  {
+    "type": "error",
+    "message": "错误信息"
+  }
+  ```
+
+## 状态码说明
+
+- 200: 请求成功
+- 201: 创建成功
+- 400: 请求参数错误
+- 401: 未授权
+- 403: 禁止访问
+- 404: 资源不存在
+- 409: 资源冲突
+- 500: 服务器错误
