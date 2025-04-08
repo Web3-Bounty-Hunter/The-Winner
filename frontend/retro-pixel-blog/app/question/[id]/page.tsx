@@ -10,6 +10,7 @@ import PixelIcon from "@/app/components/PixelIcon"
 import TokenRewardAnimation from "@/app/components/TokenRewardAnimation"
 import GlitchEffect from "@/app/components/GlitchEffect"
 import { getQuestion, getNextQuestion, updateUserTokens } from "@/app/lib/api-client"
+import { questions } from "../../data/courses" // 导入本地题目数据
 
 interface Question {
   id: number;
@@ -44,8 +45,17 @@ export default function QuestionPage({ params }: { params: Promise<{ id: string 
   const fetchQuestion = async (id: number) => {
     try {
       setLoading(true)
-      const data = await getQuestion(id)
-      setQuestion(data)
+      
+      // 从本地数据中查找题目，而不是调用API
+      const localQuestion = questions.find(q => q.id === id)
+      
+      if (localQuestion) {
+        setQuestion(localQuestion)
+      } else {
+        // 如果本地没有找到，再尝试从API获取
+        const data = await getQuestion(id)
+        setQuestion(data)
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : '获取题目失败')
     } finally {
@@ -56,7 +66,15 @@ export default function QuestionPage({ params }: { params: Promise<{ id: string 
   // 获取下一题
   const fetchNextQuestion = async (courseId: string, currentId: number) => {
     try {
-      return await getNextQuestion(courseId, currentId)
+      // 从本地数据中查找下一题
+      const courseQuestions = questions.filter(q => q.courseId === courseId)
+      const currentIndex = courseQuestions.findIndex(q => q.id === currentId)
+      
+      if (currentIndex < courseQuestions.length - 1) {
+        return courseQuestions[currentIndex + 1]
+      } else {
+        return null
+      }
     } catch (err) {
       console.error('获取下一题失败:', err)
       return null

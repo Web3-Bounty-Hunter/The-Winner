@@ -18,11 +18,12 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
           <Link
             key={post.id}
             href={`/post/${post.id}`}
-            className="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+            className="block p-6 transition-all course-card relative"
           >
+            <span></span>
             <h3 className="text-xl font-pixel mb-2">{post.title}</h3>
             <p className="font-mono text-sm mb-2">{post.content.slice(0, 100)}...</p>
-            <span className="inline-block px-2 py-1 bg-green-600 text-black text-sm font-mono rounded">
+            <span className="inline-block px-2 py-1 text-black text-sm font-mono">
               {post.category}
             </span>
           </Link>

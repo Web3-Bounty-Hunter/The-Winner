@@ -23,6 +23,10 @@ import { AuthProvider } from "./context/auth-context"
 import { Toaster } from "sonner"
 import { useState, useEffect } from "react"
 import { ThemeProvider } from "next-themes"
+// 在import部分添加BackgroundMusic组件
+import BackgroundMusic from "./components/BackgroundMusic"
+// 在import部分添加扑克筹码背景组件
+import PokerChipWaterfallBackground from "./components/PokerChipWaterfallBackground"
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
@@ -64,23 +68,64 @@ export default function ClientLayout({
       >
         <AuthProvider>
           <CyberpunkUIEffect>
-            <DynamicStripesBackground />
+            {/* 添加扑克筹码背景组件 */}
+            <PokerChipWaterfallBackground />
+            
+            {/* 注释掉条纹背景组件 */}
+            {/* <DynamicStripesBackground /> */}
+            
+            {/* 保留赌博元素背景 */}
             <GamblingElements density="low" />
+            
             <div className="max-w-5xl mx-auto px-8">
               <header className="py-10">
-                <div className="flex justify-end mb-6">
+                {/* 修改顶部布局，使三个元素在同一水平线上 */}
+                <div className="flex items-center justify-between mb-6">
+                  {/* 左侧手部图片 - 进一步放大 */}
+                  <div className="relative">
+                    <img 
+                      src="/hand-removebg-preview.png" 
+                      alt="Hand pointer" 
+                      className="h-36 w-auto object-contain hand-animation"
+                    />
+                  </div>
+                  
+                  {/* 中间标语文字 - 优化无缝滚动效果 */}
+                  <div className="text-center overflow-hidden w-3/5">
+                    <div className="ticker-tape">
+                      <div className="ticker-tape-content">
+                        <span className="font-elvpixels03 text-green-400 mx-8">
+                          Stake your knowledge, boost your luck, win the prize! Challenge now!
+                        </span>
+                        <span className="font-elvpixels03 text-green-400 mx-8">
+                          Stake your knowledge, boost your luck, win the prize! Challenge now!
+                        </span>
+                        <span className="font-elvpixels03 text-green-400 mx-8">
+                          Stake your knowledge, boost your luck, win the prize! Challenge now!
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* 右侧金币余额保持不变 */}
                   <TokenDisplay />
                 </div>
+                
                 <div className="flex flex-col items-center">
                   {/* Replace ColorfulPixelLogo with AceCardsLogo */}
                   <AceCardsLogo />
                   <CyberpunkGlitchTitle text="Crypto Quest Casino" />
-                  <p
-                    className="text-xs text-center font-elvpixels03 flex items-center mt-4"
-                    style={{ fontSize: "0.5rem" }}
-                  >
-                    Learn • Play • Win <BlinkingCursor />
-                  </p>
+                  
+                  {/* 简化副标题区域，移除手部图片 */}
+                  <div className="mt-4 flex justify-center w-full">
+                    <p
+                      className="text-xs text-center font-elvpixels03 flex items-center z-10 relative"
+                      style={{ fontSize: "0.5rem" }}
+                    >
+                      Learn • Play • Win <BlinkingCursor />
+                    </p>
+                  </div>
+                  
                   <div className="mt-6">
                     <ThemeToggle />
                   </div>
@@ -96,6 +141,8 @@ export default function ClientLayout({
             <SoundEffect />
             <div className="vignette z-50"></div>
             <CasinoButton />
+            {/* 添加背景音乐组件 */}
+            <BackgroundMusic />
           </CyberpunkUIEffect>
           <Toaster
             position="top-center"

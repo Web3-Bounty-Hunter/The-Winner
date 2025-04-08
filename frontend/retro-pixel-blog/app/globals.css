@@ -700,3 +700,190 @@ div.font-elvpixels03 {
   border-bottom: none;
 }
 
+/* 手部图片动画 */
+@keyframes hand-move {
+  0% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(2px) translateY(-2px); }
+  50% { transform: translateX(0) translateY(0); }
+  75% { transform: translateX(2px) translateY(2px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+.hand-animation {
+  animation: hand-move 2s ease-in-out infinite;
+}
+
+/* 渐变背景动画 */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 网格背景样式 */
+.bg-grid-8 {
+  background-size: 8px 8px;
+  background-image: 
+    linear-gradient(to right, rgba(74, 222, 128, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(74, 222, 128, 0.1) 1px, transparent 1px);
+}
+
+/* 径向渐变背景 */
+.bg-gradient-radial {
+  background-image: radial-gradient(ellipse at center, var(--tw-gradient-from), var(--tw-gradient-to));
+}
+
+/* 文字滚动动画 - 修改为无缝连续滚动 */
+@keyframes text-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.text-marquee {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.text-marquee p {
+  display: inline-block;
+  white-space: nowrap;
+  animation: text-scroll 25s linear infinite; /* 放慢速度：从15秒改为25秒 */
+  padding-right: 100%; /* 增加内容间距 */
+}
+
+/* 添加第二个相同文本以实现无缝滚动 */
+.text-marquee p:after {
+  content: "Stake your knowledge, boost your luck, win the prize! Challenge now!";
+  padding-left: 50px; /* 两段文本间的间距 */
+}
+
+/* 连续无缝滚动效果 */
+.continuous-marquee-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.continuous-marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 25s linear infinite; /* 放慢速度 */
+  animation-delay: -12.5s; /* 立即开始，显示中间部分 */
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.continuous-marquee-content span {
+  display: inline-block;
+}
+
+/* 改进的无缝滚动效果 */
+.ticker-tape {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.ticker-tape-content {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: ticker 50s linear infinite; /* 显著减慢速度 */
+}
+
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+
+.ticker-tape-content span {
+  display: inline-block;
+  padding: 0 1rem;
+}
+
+/* 课程卡片四角边框效果 */
+.course-card {
+  position: relative;
+  padding: 20px;
+  background-color: #1a2633;
+  transition: all 0.3s ease;
+}
+
+/* 清除默认边框，只用伪元素绘制角落 */
+.course-card::before,
+.course-card::after,
+.course-card > span::before,
+.course-card > span::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: #cc44ff; /* 紫色边框，与图片一致 */
+  border-style: solid;
+  transition: all 0.3s ease;
+  animation: corner-glow 2s infinite alternate;
+}
+
+/* 左上角 */
+.course-card::before {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+}
+
+/* 右上角 */
+.course-card::after {
+  top: 0;
+  right: 0;
+  border-width: 2px 2px 0 0;
+}
+
+/* 右下角 - 使用内部span的伪元素 */
+.course-card > span::before {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+/* 左下角 - 使用内部span的伪元素 */
+.course-card > span::after {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 2px 2px;
+}
+
+/* 角落发光动画 */
+@keyframes corner-glow {
+  0% {
+    box-shadow: 0 0 5px rgba(204, 68, 255, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(204, 68, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(204, 68, 255, 0.6);
+  }
+}
+
+/* 悬停效果 */
+.course-card:hover::before,
+.course-card:hover::after,
+.course-card:hover > span::before,
+.course-card:hover > span::after {
+  width: 25px;
+  height: 25px;
+  border-width: 3px;
+  box-shadow: 0 0 15px rgba(204, 68, 255, 1);
+}
+
