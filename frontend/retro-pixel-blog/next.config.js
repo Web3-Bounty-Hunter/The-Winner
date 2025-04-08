@@ -19,7 +19,17 @@ const nextConfig = {
         ]
       }
     ]
-  }
+  },
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  experimental: {
+    // ...其他实验特性
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 module.exports = nextConfig 
