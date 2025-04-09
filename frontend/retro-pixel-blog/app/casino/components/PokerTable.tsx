@@ -6,7 +6,7 @@ import { ArrowLeft, Coins, X, Check, Brain, Flame, MessageCircle, RefreshCw, Pla
 import GlitchEffect from "../../components/GlitchEffect"
 import PokerCard from "./PokerCard"
 import QuestionModal from "./QuestionModal"
-import { useSocket } from "../../context/socket-context"
+import { useSocket } from "../../providers/socket-provider"
 import { useAuth } from "../../context/auth-context"
 import LoadingScreen from "../../components/LoadingScreen"
 import { Button } from "@/components/ui/button"

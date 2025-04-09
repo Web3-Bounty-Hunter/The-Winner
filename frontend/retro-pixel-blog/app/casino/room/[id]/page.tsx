@@ -3,8 +3,8 @@
 import React, { useContext } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect, useCallback } from 'react'
-import { SocketContext } from '../../../providers/socket-provider'
-import { useSocketRoom } from '../../../hooks/useSocketRoom'
+import { SocketContext } from '@/app/providers/socket-provider'
+import { useSocketRoom } from '@/app/hooks/useSocketRoom'
 import Link from 'next/link'
 import { toast } from 'sonner'
 

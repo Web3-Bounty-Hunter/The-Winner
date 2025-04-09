@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/app/context/auth-context"
-import { useSocket } from "@/app/context/socket-context"
+import { useSocket } from "@/app/providers/socket-provider"
 import LoadingScreen from "@/app/components/LoadingScreen"
 import PokerTable from "@/app/casino/components/PokerTable"
 
