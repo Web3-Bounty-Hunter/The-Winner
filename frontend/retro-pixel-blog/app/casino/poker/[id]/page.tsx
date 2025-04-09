@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/app/context/auth-context"
-import { usePhoton } from "@/app/lib/photon-client"
+import { useSocket } from "@/app/context/socket-context"
 import LoadingScreen from "@/app/components/LoadingScreen"
 import PokerTable from "@/app/casino/components/PokerTable"
 
 export default function PokerRoomPage({ params }: { params: { id: string } }) {
   const router = useRouter()
   const { user, isLoading: authLoading } = useAuth()
-  const { connected, messages, getCurrentRoomId } = usePhoton()
+  const { socketClient, isConnected } = useSocket()
   const [isLoading, setIsLoading] = useState(true)
   const [room, setRoom] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
@@ -20,43 +20,48 @@ export default function PokerRoomPage({ params }: { params: { id: string } }) {
 
   // Listen for room messages
   useEffect(() => {
-    if (messages.length === 0) return
+    if (!socketClient || !isConnected) return
 
-    // Handle room joined messages
-    const roomJoinedMessages = messages.filter((msg) => msg.code === 7) // ROOM_JOINED code
-    if (roomJoinedMessages.length > 0) {
-      const latestMessage = roomJoinedMessages[roomJoinedMessages.length - 1]
-      if (latestMessage.content && latestMessage.content.room) {
-        setRoom(latestMessage.content.room)
+    // Join room
+    socketClient.emit('joinRoom', { roomId })
+
+    // Listen for room updates
+    socketClient.on('roomUpdated', (data) => {
+      if (data.room) {
+        setRoom(data.room)
         setIsLoading(false)
       }
-    }
+    })
 
-    // Handle error messages
-    const errorMessages = messages.filter((msg) => msg.code === 99) // ERROR code
-    if (errorMessages.length > 0) {
-      const latestMessage = errorMessages[errorMessages.length - 1]
-      if (latestMessage.content && latestMessage.content.message) {
-        setError(latestMessage.content.message)
+    // Listen for error messages
+    socketClient.on('error', (data) => {
+      if (data.message) {
+        setError(data.message)
         setIsLoading(false)
       }
+    })
+
+    // Cleanup function
+    return () => {
+      socketClient.emit('leaveRoom', { roomId })
+      socketClient.off('roomUpdated')
+      socketClient.off('error')
     }
-  }, [messages])
+  }, [socketClient, isConnected, roomId])
 
   // Check if user is in the correct room
   useEffect(() => {
-    if (!connected) return
+    if (!isConnected) return
 
-    const currentRoomId = getCurrentRoomId()
-
-    // If not in a room or in a different room, try to join this room
-    if (currentRoomId !== roomId) {
-      // We'll handle this in the parent component
-      router.push("/casino")
-    } else {
-      setIsLoading(false)
-    }
-  }, [connected, getCurrentRoomId, roomId, router])
+    // Get current room information
+    socketClient?.emit('getRoomInfo', { roomId }, (response: any) => {
+      if (response.error) {
+        router.push("/casino")
+      } else {
+        setIsLoading(false)
+      }
+    })
+  }, [isConnected, roomId, router, socketClient])
 
   if (authLoading) {
     return <LoadingScreen message="Loading..." />
