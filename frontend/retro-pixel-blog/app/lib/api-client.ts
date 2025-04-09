@@ -1,8 +1,8 @@
 // API client for blockchain knowledge quiz API
 
 // 更新API_BASE_URL和WS_URL常量
-const API_BASE_URL = "http://localhost:3001"
-const WS_URL = "wss://localhost:3001"
+const API_BASE_URL = "http://8.218.148.159:3001"
+const WS_URL = "wss://8.218.148.159:3001"
 
 // 简化 getApiUrl 函数，确保正确添加 /api 前缀
 function getApiUrl(endpoint: string): string {

@@ -9,29 +9,30 @@ contract DeployTokenSwap is Script {
         address bcTokenAddress = vm.envAddress("BC_TOKEN_ADDRESS");
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         
-        // 设置默认参数
-        uint256 bcToEduRate = 100; // 100 BC = 1 EDU
-        uint256 eduToBcBonus = 11000; // 110% 奖励
-        uint256 feePercentage = 100; // 1% 手续费
-        uint256 initialLiquidity = 0.1 ether; // 初始EDU流动性
+        // Default parameters
+        uint256 bcToEduRate = 1; // 100 BC = 1 EDU
+        uint256 eduToBcBonus = 110; // 110% bonus
+        uint256 feePercentage = 100; // 1% fee
+        uint256 initialLiquidity = 0.00001 ether; // Initial EDU liquidity
 
-        console.log("开始部署 TokenSwap...");
-        console.log("参数:");
-        console.log("- BC Token: %s", bcTokenAddress);
-        console.log("- BC到EDU汇率: %s", bcToEduRate);
-        console.log("- EDU到BC奖励: %s (%.2f%%)", eduToBcBonus, eduToBcBonus / 100.0);
-        console.log("- 手续费: %s (%.2f%%)", feePercentage, feePercentage / 100.0);
-
+        console.log("Starting TokenSwap deployment...");
+        
         vm.startBroadcast(deployerPrivateKey);
 
+        // 部署合约时只使用 value 参数
         TokenSwap tokenSwap = new TokenSwap{value: initialLiquidity}(
             bcTokenAddress,
-            bcToEduRate, 
+            bcToEduRate,
             eduToBcBonus,
             feePercentage
         );
         
-        console.log("TokenSwap 部署成功: %s", address(tokenSwap));
+        console.log("TokenSwap deployed at: %s", address(tokenSwap));
+        console.log("TokenSwap initialized with parameters:");
+        console.log("- BC Token: %s", bcTokenAddress);
+        console.log("- BC to EDU rate: %s", bcToEduRate);
+        console.log("- EDU to BC bonus: %s (%.2f%%)", eduToBcBonus, eduToBcBonus / 100.0);
+        console.log("- Fee: %s (%.2f%%)", feePercentage, feePercentage / 100.0);
 
         vm.stopBroadcast();
     }

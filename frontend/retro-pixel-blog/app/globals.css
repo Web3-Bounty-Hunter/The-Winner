@@ -887,3 +887,32 @@ div.font-elvpixels03 {
   box-shadow: 0 0 15px rgba(204, 68, 255, 1);
 }
 
+/* 题目滚动容器 */
+.question-scroll-container {
+  mask-image: linear-gradient(to bottom, 
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+}
+
+/* 滚动动画 */
+.question-scroll {
+  animation: scrollUp 30s linear infinite;
+}
+
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* 悬停时暂停动画 */
+.course-card:hover .question-scroll {
+  animation-play-state: paused;
+}
+

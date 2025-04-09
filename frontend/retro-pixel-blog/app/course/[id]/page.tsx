@@ -49,7 +49,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
     return (
       <div className="flex justify-center items-center py-20">
         <div className="w-16 h-16 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-        <p className="ml-4 font-pixel">加载题目中...</p>
+        <p className="ml-4 font-pixel">loading...</p>
       </div>
     )
   }
@@ -68,7 +68,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
             className="pixelated-border p-3 bg-gray-800 hover:bg-gray-700 transition-colors font-squares text-xs"
             style={{ fontSize: "0.35rem" }}
           >
-            返回主页
+            Back
           </Link>
         </GlitchEffect>
       </div>
@@ -83,7 +83,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
       <div className="flex items-center gap-3 mb-6">
         <PixelIcon type="coin" size={16} />
         <h3 className="text-xs font-squares" style={{ fontSize: "0.45rem" }}>
-          课程题目
+          Questions
         </h3>
       </div>
 
@@ -99,8 +99,8 @@ export default function CoursePage({ params }: { params: { id: string } }) {
             <h3 className="font-bold text-xl mb-2">{question.title}</h3>
             <p className="text-gray-300">{question.question.substring(0, 100)}...</p>
             <div className="flex justify-between mt-2">
-              <span className="text-xs bg-blue-900 px-2 py-1 rounded">难度: {question.difficulty}</span>
-              <span className="text-xs bg-green-900 px-2 py-1 rounded">奖励: {question.tokenReward}代币</span>
+              <span className="text-xs bg-blue-900 px-2 py-1 rounded">difficulty: {question.difficulty}</span>
+              <span className="text-xs bg-green-900 px-2 py-1 rounded">reward: {question.tokenReward}Token</span>
             </div>
           </div>
         ))}

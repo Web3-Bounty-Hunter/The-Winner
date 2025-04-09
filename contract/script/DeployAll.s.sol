@@ -10,58 +10,58 @@ contract DeployAll is Script {
     function run() external {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         
-        // 设置参数
+        // Set parameters
         uint256 bcToEduRate = 100; // 100 BC = 1 EDU
-        uint256 eduToBcBonus = 11000; // 110% 奖励
-        uint256 feePercentage = 100; // 1% 手续费
-        uint256 initialEduLiquidity = 0.1 ether; // 初始EDU流动性
+        uint256 eduToBcBonus = 11000; // 110% bonus
+        uint256 feePercentage = 100; // 1% fee
+        uint256 initialEduLiquidity = 0.01 ether; // Initial EDU liquidity
 
-        console.log("开始部署所有合约...");
+        console.log("...");
 
         vm.startBroadcast(deployerPrivateKey);
 
-        // 1. 部署BattleCoin
-        console.log("\n=== 部署 BattleCoin ===");
+        // 1. Deploy BattleCoin
+        console.log("\n=== Deploying BattleCoin ===");
         BattleCoin battleCoin = new BattleCoin();
-        console.log("BattleCoin 部署成功: %s", address(battleCoin));
+        console.log("BattleCoin deployed successfully: %s", address(battleCoin));
 
-        // 2. 部署TokenSwap
-        console.log("\n=== 部署 TokenSwap ===");
+        // 2. Deploy TokenSwap
+        console.log("\n=== Deploying TokenSwap ===");
         TokenSwap tokenSwap = new TokenSwap{value: initialEduLiquidity}(
             address(battleCoin),
             bcToEduRate,
             eduToBcBonus,
             feePercentage
         );
-        console.log("TokenSwap 部署成功: %s", address(tokenSwap));
+        console.log("TokenSwap deployed successfully: %s", address(tokenSwap));
 
-        // 3. 部署TokenActivity (Poker)
-        console.log("\n=== 部署 TokenActivity (Poker) ===");
+        // 3. Deploy TokenActivity (Poker)
+        console.log("\n=== Deploying TokenActivity (Poker) ===");
         TokenActivity tokenActivity = new TokenActivity(address(battleCoin));
-        console.log("TokenActivity 部署成功: %s", address(tokenActivity));
+        console.log("TokenActivity deployed successfully: %s", address(tokenActivity));
 
-        // 打印所有合约地址
-        console.log("\n=== 部署摘要 ===");
+        // Print all contract addresses
+        console.log("\n=== Deployment Summary ===");
         console.log("BattleCoin: %s", address(battleCoin));
         console.log("TokenSwap: %s", address(tokenSwap));
         console.log("TokenActivity: %s", address(tokenActivity));
 
-        // 4. 初始设置
-        console.log("\n=== 初始设置 ===");
+        // 4. Initial Setup
+        console.log("\n=== Initial Setup ===");
         
-        // 给TokenSwap合约添加BC流动性
-        console.log("给TokenSwap添加BC流动性...");
+        // Add BC liquidity to TokenSwap contract
+        console.log("Adding BC liquidity to TokenSwap...");
         uint256 initialBcLiquidity = 1000 ether;
         battleCoin.mint(address(tokenSwap), initialBcLiquidity);
-        console.log("已添加 %s BC到TokenSwap", initialBcLiquidity / 1 ether);
+        console.log("Added %s BC to TokenSwap", initialBcLiquidity / 1 ether);
         
-        // 创建一个游戏桌
-        console.log("创建初始游戏桌...");
+        // Create a game table
+        console.log("Creating initial game table...");
         tokenActivity.createTable();
-        console.log("游戏桌1已创建");
+        console.log("Game table 1 created");
 
         vm.stopBroadcast();
 
-        console.log("\n所有合约部署和初始设置完成!");
+        console.log("\nAll contracts deployed and initialized successfully!");
     }
 } 

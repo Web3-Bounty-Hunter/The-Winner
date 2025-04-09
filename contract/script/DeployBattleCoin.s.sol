@@ -9,9 +9,9 @@ contract DeployBattleCoin is Script {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
 
-        console.log("开始部署 BattleCoin...");
+        console.log(unicode"开始部署 BattleCoin...");
         BattleCoin battleCoin = new BattleCoin();
-        console.log("BattleCoin 部署成功: %s", address(battleCoin));
+        console.log(unicode"BattleCoin 部署成功: %s", address(battleCoin));
 
         vm.stopBroadcast();
     }

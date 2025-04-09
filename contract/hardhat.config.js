@@ -4,6 +4,13 @@ require("dotenv").config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.20",
+  paths: {
+    // 指向 foundry 的合约目录
+    sources: "./src",
+    tests: "./test/hardhat",
+    cache: "./cache/hardhat",
+    artifacts: "./artifacts/hardhat"
+  },
   networks: {
     hardhat: {},
     sepolia: {

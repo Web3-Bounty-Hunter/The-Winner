@@ -5,6 +5,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TokenSwap is Ownable {
+    bool private initialized;
+    
     // BattleCoin代币合约地址
     IERC20 public bcToken;
     
@@ -39,6 +41,7 @@ contract TokenSwap is Ownable {
         bcToEduRate = _bcToEduRate;
         eduToBcBonus = _eduToBcBonus;
         feePercentage = _feePercentage;
+        initialized = true;
     }
 
     // 使用BC兑换EDU

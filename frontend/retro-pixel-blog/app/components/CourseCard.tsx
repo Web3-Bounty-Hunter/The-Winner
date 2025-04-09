@@ -1,7 +1,9 @@
+"use client"
 import type React from "react"
 import Link from "next/link"
 import { Blocks, Coins, Bitcoin, Image } from "lucide-react"
-
+import { useState, useEffect } from "react"
+import { getCourseQuestions } from "../data/courses"
 interface CourseCardProps {
   id: string
   title: string
@@ -10,6 +12,14 @@ interface CourseCardProps {
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ id, title, description, icon }) => {
+  const [questions, setQuestions] = useState<any[]>([]);
+  
+  // 获取课程相关的题目
+  useEffect(() => {
+    const courseQuestions = getCourseQuestions(id);
+    setQuestions(courseQuestions);
+  }, [id]);
+
   const getIcon = () => {
     switch (icon) {
       case "Coins":
@@ -28,7 +38,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ id, title, description, icon })
   return (
     <Link
       href={`/course/${id}`}
-      className="block p-6 transition-all course-card h-48 relative"
+      className="block p-6 transition-all course-card h-48 relative overflow-hidden"
     >
       <span></span>
       <div className="flex flex-col items-center text-center h-full justify-between py-2">
@@ -54,6 +64,39 @@ const CourseCard: React.FC<CourseCardProps> = ({ id, title, description, icon })
         >
           {description}
         </p>
+        
+        {/* 添加滚动题目列表 */}
+        <div className="question-scroll-container h-20 overflow-hidden relative">
+          <div className="question-scroll animate-scrollUp">
+            {questions.map((question, index) => (
+              <p
+                key={`${question.id}-${index}`}
+                className="font-elvpixels03 text-xs py-2"
+                style={{
+                  fontSize: "0.25rem",
+                  lineHeight: "1.8",
+                  letterSpacing: "0.15em",
+                }}
+              >
+                {question.title}
+              </p>
+            ))}
+            {/* 复制一份题目实现无缝滚动 */}
+            {questions.map((question, index) => (
+              <p
+                key={`${question.id}-repeat-${index}`}
+                className="font-elvpixels03 text-xs py-2"
+                style={{
+                  fontSize: "0.25rem",
+                  lineHeight: "1.8",
+                  letterSpacing: "0.15em",
+                }}
+              >
+                {question.title}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
     </Link>
   )
