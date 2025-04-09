@@ -170,52 +170,52 @@ export const questions = [
     difficulty: "medium",
   },
 
-  // Additional example questions
+  // Additional example questions (converted from Chinese to English)
   {
     id: 10,
     courseId: "blockchain",
-    title: "什么是区块链？",
-    question: "区块链最基本的定义是什么？",
+    title: "What is a Blockchain?",
+    question: "What is the most fundamental definition of a blockchain?",
     options: [
-      "A. 一种加密货币",
-      "B. 一种分布式账本技术",
-      "C. 一种编程语言",
-      "D. 一种云存储服务"
+      "A. A type of cryptocurrency",
+      "B. A distributed ledger technology",
+      "C. A programming language",
+      "D. A cloud storage service"
     ],
     correctAnswer: "B",
-    explanation: "区块链是一种分布式账本技术，允许多方安全地记录交易和管理信息，无需中央权威机构。",
+    explanation: "A blockchain is a distributed ledger technology that allows multiple parties to securely record transactions and manage information without a central authority.",
     difficulty: "easy",
     tokenReward: 10
   },
   {
     id: 11,
     courseId: "blockchain",
-    title: "比特币区块的作用",
-    question: "在比特币网络中，区块的主要作用是什么？",
+    title: "The Role of Bitcoin Blocks",
+    question: "What is the primary function of blocks in the Bitcoin network?",
     options: [
-      "A. 存储用户账户余额",
-      "B. 执行智能合约",
-      "C. 记录和验证交易",
-      "D. 存储用户个人信息"
+      "A. Storing user account balances",
+      "B. Executing smart contracts",
+      "C. Recording and verifying transactions",
+      "D. Storing personal user information"
     ],
     correctAnswer: "C",
-    explanation: "比特币区块的主要作用是记录和验证网络中发生的交易，确保交易的不可篡改性和透明性。",
+    explanation: "The primary role of Bitcoin blocks is to record and verify transactions occurring in the network, ensuring immutability and transparency.",
     difficulty: "easy",
     tokenReward: 10
   },
   {
     id: 12,
     courseId: "defi",
-    title: "什么是流动性挖矿？",
-    question: "在DeFi生态系统中，流动性挖矿(Liquidity Mining)主要是指什么？",
+    title: "What is Liquidity Mining?",
+    question: "In the DeFi ecosystem, what does liquidity mining primarily refer to?",
     options: [
-      "A. 通过解决数学问题来挖掘新代币",
-      "B. 通过提供流动性获得协议代币奖励",
-      "C. 在DEX上交易代币获取手续费",
-      "D. 通过持有治理代币获得分红"
+      "A. Generating new tokens by solving mathematical problems",
+      "B. Earning protocol tokens as rewards for providing liquidity",
+      "C. Gaining trading fees on DEXes",
+      "D. Receiving dividends by holding governance tokens"
     ],
     correctAnswer: "B",
-    explanation: "流动性挖矿是指用户通过向去中心化协议提供流动性（通常是代币对），从而获得协议原生代币作为奖励的过程。",
+    explanation: "Liquidity mining refers to users providing liquidity, often in token pairs, to decentralized protocols in exchange for the protocol's native token rewards.",
     difficulty: "medium",
     tokenReward: 20
   },
@@ -225,32 +225,32 @@ export const questions = [
   {
     id: 101,
     courseId: "blockchain-basics",
-    title: "区块链基本概念",
-    question: "区块链最基本的定义是什么？",
+    title: "Blockchain Fundamentals",
+    question: "What is the primary purpose of blockchain technology?",
     options: [
-      "A. 一种加密货币",
-      "B. 一种分布式账本技术",
-      "C. 一种编程语言",
-      "D. 一种云存储服务"
+      "A. To create cryptocurrencies only",
+      "B. To maintain a decentralized and immutable ledger",
+      "C. To replace traditional databases",
+      "D. To speed up computer processing"
     ],
     correctAnswer: "B",
-    explanation: "区块链是一种分布式账本技术，允许多方安全地记录交易和管理信息，无需中央权威机构。",
+    explanation: "Blockchain technology primarily serves as a decentralized and immutable ledger system that enables secure and transparent record-keeping without central authority.",
     tokenReward: 10,
     difficulty: "easy",
   },
   {
     id: 102,
     courseId: "blockchain-basics",
-    title: "区块构成",
-    question: "区块链中的区块通常包含哪些基本组成部分？",
+    title: "Block Components",
+    question: "What are the essential components of a blockchain block?",
     options: [
-      "A. 哈希值、时间戳和交易数据",
-      "B. 用户名和密码",
-      "C. CPU和内存信息",
-      "D. 操作系统和应用程序"
+      "A. Hash, timestamp, and transaction data",
+      "B. Username and password",
+      "C. CPU and memory information",
+      "D. Operating system and applications"
     ],
     correctAnswer: "A",
-    explanation: "区块通常包含前一个区块的哈希值、时间戳、merkle根和交易数据等信息。",
+    explanation: "A blockchain block typically contains the previous block's hash, timestamp, merkle root, and transaction data.",
     tokenReward: 10,
     difficulty: "easy",
   },
@@ -260,17 +260,17 @@ export const questions = [
   {
     id: 201,
     courseId: "blockchain-basics",
-    title: "共识机制比较",
-    question: "以下哪种共识机制能够提供最高的交易吞吐量？",
+    title: "Consensus Mechanisms Comparison",
+    question: "Which consensus mechanism provides the highest transaction throughput?",
     options: [
-      "A. 工作量证明(PoW)",
-      "B. 权益证明(PoS)",
-      "C. 授权权益证明(DPoS)",
-      "D. 实用拜占庭容错(PBFT)",
-      "E. 可验证随机函数(VRF)"
+      "A. Proof of Work (PoW)",
+      "B. Proof of Stake (PoS)",
+      "C. Delegated Proof of Stake (DPoS)",
+      "D. Practical Byzantine Fault Tolerance (PBFT)",
+      "E. Verifiable Random Function (VRF)"
     ],
     correctAnswer: "D",
-    explanation: "PBFT系列共识机制通常能提供最高的交易吞吐量，但需要牺牲一定的去中心化程度。",
+    explanation: "PBFT consensus mechanisms typically provide the highest transaction throughput but sacrifice some degree of decentralization.",
     tokenReward: 20,
     difficulty: "medium",
   },
@@ -280,18 +280,18 @@ export const questions = [
   {
     id: 301,
     courseId: "blockchain-basics",
-    title: "区块链性能瓶颈分析",
-    question: "以下哪个因素是限制公共区块链扩展性的主要瓶颈？",
+    title: "Blockchain Scalability Analysis",
+    question: "What is the main bottleneck limiting public blockchain scalability?",
     options: [
-      "A. 计算能力不足",
-      "B. 存储容量限制",
-      "C. 网络带宽和延迟",
-      "D. 共识算法的时间复杂度",
-      "E. 智能合约执行效率",
-      "F. 状态爆炸问题"
+      "A. Computational power",
+      "B. Storage capacity",
+      "C. Network bandwidth and latency",
+      "D. Consensus algorithm complexity",
+      "E. Smart contract execution",
+      "F. State explosion problem"
     ],
     correctAnswer: "F",
-    explanation: "状态爆炸问题是指随着链上数据和状态的增长，节点需要维护的状态数据量呈指数级增长，这是限制公共区块链扩展性的主要瓶颈之一。",
+    explanation: "The state explosion problem, where state data grows exponentially with chain usage, is one of the primary bottlenecks in public blockchain scalability.",
     tokenReward: 30,
     difficulty: "hard",
   },
@@ -301,20 +301,20 @@ export const questions = [
   {
     id: 401,
     courseId: "blockchain-basics",
-    title: "零知识证明优化",
-    question: "在ZK-SNARK电路设计中，以下哪种优化方法能有效减少证明生成所需的计算资源？",
+    title: "Zero-Knowledge Proof Optimization",
+    question: "In ZK-SNARK circuit design, which of the following optimization approaches can effectively reduce the computational resources required for proof generation?",
     options: [
-      "A. 增加约束数量",
-      "B. 使用递归证明",
-      "C. 引入更多辅助变量",
-      "D. 采用更大的有限域",
-      "E. 降低电路门限值",
-      "F. 使用PLONKish电路结构",
-      "G. 避免R1CS约束",
-      "H. 增加电路深度"
+      "A. Increasing the number of constraints",
+      "B. Using recursive proofs",
+      "C. Introducing more auxiliary variables",
+      "D. Using a larger finite field",
+      "E. Lowering the circuit threshold value",
+      "F. Using PLONKish circuit structures",
+      "G. Avoiding R1CS constraints",
+      "H. Increasing the circuit depth"
     ],
     correctAnswer: "F",
-    explanation: "PLONKish电路结构通过自定义门和查找表等技术，可以显著减少ZK证明生成所需的计算资源，这是目前ZK电路优化的主流方向。",
+    explanation: "PLONKish circuit structures, through custom gates and lookup tables, can significantly reduce the computational resources required for generating ZK proofs, which is a mainstream direction for ZK circuit optimization.",
     tokenReward: 50,
     difficulty: "hell",
   },
@@ -325,16 +325,16 @@ export const questions = [
   {
     id: 501,
     courseId: "defi",
-    title: "DeFi基础概念",
-    question: "DeFi是什么的缩写？",
+    title: "DeFi Basics",
+    question: "What is the main advantage of DeFi over traditional finance?",
     options: [
-      "A. 分布式金融(Distributed Finance)",
-      "B. 去中心化金融(Decentralized Finance)",
-      "C. 数字金融(Digital Finance)",
-      "D. 衍生品金融(Derivative Finance)"
+      "A. Lower transaction fees",
+      "B. Permissionless access and transparency",
+      "C. Faster transaction processing",
+      "D. Government regulation"
     ],
     correctAnswer: "B",
-    explanation: "DeFi是去中心化金融(Decentralized Finance)的缩写，指基于区块链技术的金融应用生态系统。",
+    explanation: "DeFi's main advantage is its permissionless nature and transparency, allowing anyone to access financial services without traditional intermediaries.",
     tokenReward: 10,
     difficulty: "easy",
   },

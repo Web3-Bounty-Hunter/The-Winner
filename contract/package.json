@@ -1,7 +1,7 @@
 {
   "name": "blockchain-battle",
   "version": "1.0.0",
-  "description": "区块链战斗游戏合约",
+  "description": "Blockchain Battle Game Contracts",
   "main": "index.js",
   "scripts": {
     "test": "hardhat test",
@@ -22,9 +22,13 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "dotenv": "^16.3.1",
-    "hardhat": "^2.19.1"
+    "hardhat": "^2.22.19"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.0"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
   }
-} 
+}

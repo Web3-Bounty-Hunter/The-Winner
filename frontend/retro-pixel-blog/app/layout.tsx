@@ -2,6 +2,7 @@ import type React from "react"
 import ClientLayout from "./ClientLayout"
 // import PhotonScriptLoader from './components/photon-script-loader'
 import { SocketProvider } from './providers/socket-provider'
+import OCConnectWrapper from './components/OCConnectWrapper'
 
 export const metadata = {
   title: "Crypto Quest Casino",
@@ -14,6 +15,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const opts = {
+    clientId: 'sandbox_mode',
+    redirectUri: 'http://localhost:3000/redirect',
+    referralCode: 'PARTNER6',
+  };
+
   return (
     <html lang="zh-CN">
       <head>
@@ -22,7 +29,9 @@ export default function RootLayout({
       <body>
         {/* 删除 PhotonScriptLoader */}
         <SocketProvider>
-          <ClientLayout>{children}</ClientLayout>
+          <OCConnectWrapper opts={opts} sandboxMode={true}>
+            <ClientLayout>{children}</ClientLayout>
+          </OCConnectWrapper>
         </SocketProvider>
       </body>
     </html>

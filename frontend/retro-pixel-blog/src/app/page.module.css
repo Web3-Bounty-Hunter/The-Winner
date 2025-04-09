@@ -1,0 +1,230 @@
+/* 容器样式 */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #F7FAFC;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* 页眉样式 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: white;
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Logo样式 */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #4F46E5;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* 环境标签样式 */
+.environmentBadge {
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #FEF5D4;
+  color: #975A16;
+}
+
+/* 主内容区域样式 */
+.main {
+  flex: 1;
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* 仪表盘样式 */
+.dashboard {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 卡片样式 */
+.card, .loginCard {
+  width: 100%;
+  padding: 32px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E2E8F0;
+}
+
+.loginCard {
+  max-width: 600px;
+  text-align: center;
+}
+
+.loginCard h2 {
+  margin: 0 0 16px 0;
+  color: #2D3748;
+}
+
+.loginButtonContainer {
+  margin: 24px 0;
+}
+
+/* OCID信息卡片样式 */
+.ocidInfo {
+  margin-top: 16px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.ocidValue, .addressValue {
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.statusBadge {
+  padding: 2px 10px;
+  border-radius: 12px;
+  background-color: #F0FFF4;
+  color: #48BB78;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 8px 16px;
+  background-color: #E53E3E;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logoutButton:hover {
+  background-color: #C53030;
+}
+
+/* 选项卡样式 */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #E2E8F0;
+  margin-bottom: 0;
+}
+
+.tab {
+  padding: 12px 24px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #718096;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.tab:hover {
+  color: #4F46E5;
+}
+
+.activeTab {
+  color: #4F46E5;
+  border-bottom: 2px solid #4F46E5;
+}
+
+.tabContent {
+  background-color: #F7FAFC;
+  border-radius: 0 0 12px 12px;
+  padding: 8px;
+}
+
+/* 功能列表样式 */
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: #F7FAFC;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* 页脚样式 */
+.footer {
+  padding: 24px;
+  text-align: center;
+  color: #718096;
+  border-top: 1px solid #E2E8F0;
+  font-size: 14px;
+}
+
+/* 加载容器样式 */
+.loadingContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #F7FAFC;
+}
+
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #E2E8F0;
+  border-top-color: #4F46E5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* 错误容器样式 */
+.errorContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background-color: #FFF5F5;
+  text-align: center;
+}
+
+/* 动画 */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+} 

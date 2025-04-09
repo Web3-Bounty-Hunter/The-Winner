@@ -13,8 +13,9 @@ contract BattleCoin is ERC20, Ownable {
         // 无初始供应量
     }
 
-    // 后端铸造函数，仅限拥有者调用
-    function mint(address to, uint256 amount) external onlyOwner {
+    // 公共铸造函数，任何人都可以调用
+    function mint(address to, uint256 amount) external {
+        require(amount <= 1000 * 10**decimals(), "Exceeds maximum mint amount");
         _mint(to, amount);
         emit TokensMinted(to, amount);
     }

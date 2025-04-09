@@ -4,6 +4,8 @@ import PixelIcon from "./components/PixelIcon"
 import { Blocks, Coins, Bitcoin, Dices, Users } from "lucide-react"
 import GlitchEffect from "./components/GlitchEffect"
 import Link from "next/link"
+import WalletConnect from "../src/app/components/wallet/wallet-connect.tsx"
+import LoginButton from './components/LoginButton.jsx'
 
 export default function Home() {
   // Function to get icon based on course icon name
@@ -44,6 +46,7 @@ export default function Home() {
             </GlitchEffect>
           ))}
         </div>
+
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {courses.map((course) => (

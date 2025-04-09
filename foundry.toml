@@ -1,0 +1,7 @@
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
+]
+
+[profile.default]
+gas_limit = 8000000
+gas_price = 1000000000  # 1 gwei 

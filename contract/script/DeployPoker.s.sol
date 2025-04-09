@@ -9,13 +9,13 @@ contract DeployPoker is Script {
         address bcTokenAddress = vm.envAddress("BC_TOKEN_ADDRESS");
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
 
-        console.log("开始部署 TokenActivity (Poker)...");
-        console.log("使用 BC Token: %s", bcTokenAddress);
+        console.log(unicode"开始部署 TokenActivity (Poker)...");
+        console.log(unicode"使用 BC Token: %s", bcTokenAddress);
 
         vm.startBroadcast(deployerPrivateKey);
 
         TokenActivity tokenActivity = new TokenActivity(bcTokenAddress);
-        console.log("TokenActivity 部署成功: %s", address(tokenActivity));
+        console.log(unicode"TokenActivity 部署成功: %s", address(tokenActivity));
 
         vm.stopBroadcast();
     }

@@ -109,9 +109,14 @@ export default function QuestionPage({ params }: { params: Promise<{ id: string 
     if (correct) {
       setShowRewardAnimation(true)
       try {
-        await updateUserTokens(question.id, question.tokenReward)
-        // 更新本地代币显示
-        window.dispatchEvent(new Event("tokenUpdate"))
+        // 触发 pendingTokens 更新事件
+        const event = new CustomEvent("pendingTokensUpdate", {
+          detail: question.tokenReward
+        })
+        window.dispatchEvent(event)
+        
+        // 显示奖励动画
+        setShowRewardAnimation(true)
       } catch (err) {
         console.error('更新代币失败:', err)
       }
