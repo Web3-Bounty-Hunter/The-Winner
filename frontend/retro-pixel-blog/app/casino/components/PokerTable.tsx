@@ -6,7 +6,7 @@ import { ArrowLeft, Coins, X, Check, Brain, Flame, MessageCircle, RefreshCw, Pla
 import GlitchEffect from "../../components/GlitchEffect"
 import PokerCard from "./PokerCard"
 import QuestionModal from "./QuestionModal"
-import { usePhoton, PhotonEventCode, type PhotonEvent, type PhotonRoom } from "../../lib/photon-service"
+import { useSocket } from "../../context/socket-context"
 import { useAuth } from "../../context/auth-context"
 import LoadingScreen from "../../components/LoadingScreen"
 import { Button } from "@/components/ui/button"
@@ -16,7 +16,7 @@ import RoomDebugInfo from "./RoomDebugInfo"
 import DealingAnimation from "./DealingAnimation"
 
 interface PokerTableProps {
-  room: PhotonRoom
+  room: any
   gameId: string
   onExit: () => void
   buyIn: number
@@ -75,18 +75,8 @@ interface WSQuestion {
 
 const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onExit, buyIn }) => {
   const { user } = useAuth()
-  const {
-    messages,
-    leaveRoom,
-    startGame,
-    submitAnswer,
-    setReady,
-    sendChatMessage,
-    getCurrentRoomInfo,
-    connectionStatus,
-    sendEvent,
-  } = usePhoton()
-  const [currentRoom, setCurrentRoom] = useState<PhotonRoom>(initialRoom)
+  const { socketClient } = useSocket()
+  const [currentRoom, setCurrentRoom] = useState(initialRoom)
   const [gameStage, setGameStage] = useState<"pre-flop" | "flop" | "turn" | "river" | "showdown">("pre-flop")
   const [playerCards, setPlayerCards] = useState<Card[]>([])
   const [communityCards, setCommunityCards] = useState<Card[]>([])
@@ -119,7 +109,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
 
   // Add useCallback to handleWebSocketMessage to prevent recreation on every render
   const handleWebSocketMessage = useCallback(
-    (latestMessage: PhotonEvent) => {
+    (latestMessage: any) => {
       console.log("PokerTable - Processing message:", latestMessage.code)
 
       // Generate message unique ID to avoid duplicate processing
@@ -143,7 +133,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
       }
 
       switch (latestMessage.code) {
-        case PhotonEventCode.ROOM_JOINED:
+        case 'roomUpdated':
           const roomData = latestMessage.content.room
           if (roomData) {
             console.log("Setting room info:", roomData)
@@ -183,7 +173,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
           }
           break
 
-        case PhotonEventCode.PLAYER_JOINED:
+        case 'playerJoined':
           console.log("Player joined:", latestMessage.content.player)
           if (latestMessage.content.player) {
             setPlayers((prev) => {
@@ -201,7 +191,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
           }
           break
 
-        case PhotonEventCode.PLAYER_LEFT:
+        case 'playerLeft':
           console.log("Player left:", latestMessage.content.playerId)
           if (latestMessage.content.playerId) {
             // Get leaving player's name
@@ -218,7 +208,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
           }
           break
 
-        case PhotonEventCode.PLAYER_READY:
+        case 'playerReady':
           console.log("Player ready status changed:", latestMessage.content.playerId, latestMessage.content.isReady)
           setPlayers((prev) =>
             prev.map((p) =>
@@ -234,7 +224,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
           }
           break
 
-        case PhotonEventCode.GAME_STARTED:
+        case 'gameStarted':
           console.log("Game started:", latestMessage.content)
           setGameStage("pre-flop")
           // Initialize cards
@@ -247,39 +237,39 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
           addSystemChatMessage("Game has started! Good luck!")
           break
 
-        case PhotonEventCode.QUESTION:
+        case 'question':
           handleQuestionReceived(latestMessage.content.question)
           break
 
-        case PhotonEventCode.ANSWER_RESULT:
+        case 'answerResult':
           handleAnswerResult(latestMessage.content.correct, latestMessage.content.cardId, latestMessage.content.card)
           break
 
-        case PhotonEventCode.CARD_SELECTED:
+        case 'cardSelected':
           handleCardSelected(latestMessage.content.cardId, latestMessage.content.selected)
           break
 
-        case PhotonEventCode.FLOP_REVEALED:
+        case 'flopRevealed':
           revealFlop(latestMessage.content.communityCards)
           break
 
-        case PhotonEventCode.TURN_REVEALED:
+        case 'turnRevealed':
           revealTurn(latestMessage.content.card)
           break
 
-        case PhotonEventCode.RIVER_REVEALED:
+        case 'riverRevealed':
           revealRiver(latestMessage.content.card)
           break
 
-        case PhotonEventCode.SHOWDOWN:
+        case 'showdown':
           handleShowdown(latestMessage.content.results)
           break
 
-        case PhotonEventCode.CHAT_MESSAGE:
+        case 'chatMessage':
           handleChatMessage(latestMessage.content)
           break
 
-        case PhotonEventCode.ERROR:
+        case 'error':
           setError(latestMessage.content.message)
           setIsLoading(false)
           toast.error(latestMessage.content.message || "An error occurred")
@@ -291,21 +281,53 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
 
   // 监听WebSocket消息
   useEffect(() => {
-    if (messages.length === 0) return
+    if (!socketClient) return
 
-    // 只处理新消息
-    const now = Date.now()
-    const newMessages = messages.filter((msg) => {
-      const msgTime = msg.timestamp || now
-      return msgTime > lastMessageTimeRef.current
+    // 监听房间更新
+    socketClient.on('roomUpdated', (data) => {
+      if (data.room) {
+        setCurrentRoom(data.room)
+        setPlayers(data.room.players || [])
+      }
     })
 
-    if (newMessages.length > 0) {
-      lastMessageTimeRef.current = now
-      const latestMessage = newMessages[newMessages.length - 1]
-      handleWebSocketMessage(latestMessage)
+    // 监听游戏开始
+    socketClient.on('gameStarted', (data) => {
+      setGameStage("pre-flop")
+      initializeCards(data.cards)
+      toast.success("游戏开始!")
+      addSystemChatMessage("游戏开始! 祝你好运!")
+    })
+
+    // 监听问题
+    socketClient.on('question', (data) => {
+      handleQuestionReceived(data.question)
+    })
+
+    // 监听答案结果
+    socketClient.on('answerResult', (data) => {
+      handleAnswerResult(data.correct, data.cardId, data.card)
+    })
+
+    // 监听聊天消息
+    socketClient.on('chatMessage', (data) => {
+      const newMessage = {
+        id: Date.now(),
+        username: data.username,
+        message: data.message,
+        timestamp: new Date(),
+      }
+      setChatMessages(prev => [...prev, newMessage])
+    })
+
+    return () => {
+      socketClient.off('roomUpdated')
+      socketClient.off('gameStarted')
+      socketClient.off('question')
+      socketClient.off('answerResult')
+      socketClient.off('chatMessage')
     }
-  }, [messages, handleWebSocketMessage])
+  }, [socketClient])
 
   // 初始化游戏
   useEffect(() => {
@@ -391,7 +413,10 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
 
     if (!chatMessage.trim()) return
 
-    sendChatMessage(gameId, chatMessage)
+    socketClient?.emit('chatMessage', {
+      roomId: gameId,
+      message: chatMessage.trim()
+    })
 
     // Optimistically add to local chat
     setChatMessages((prev) => [
@@ -580,52 +605,39 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
   // 处理卡牌点击
   const handleCardClick = (card: Card) => {
     if (card.revealed || card.burned) return
-
-    // 在实际实现中，这会通过WebSocket请求问题
-    // 现在使用模拟数据
-    const mockQuestion = {
-      id: Math.floor(Math.random() * 1000).toString(),
-      text: `This is a ${card.difficulty} question about blockchain technology?`,
-      options: ["Answer option 1", "Answer option 2", "Answer option 3", "Answer option 4"],
-      correctAnswer: 0,
-    }
-
-    setCurrentQuestion({ card, question: mockQuestion })
+    socketClient?.emit('requestQuestion', { 
+      roomId: gameId,
+      cardId: card.id,
+      difficulty: card.difficulty
+    })
   }
 
   // 处理问题回答
   const handleAnswerQuestion = (isCorrect: boolean) => {
     if (!currentQuestion) return
-
-    const cardId = playerCards.findIndex((c) => c.id === currentQuestion.card.id)
-
-    // 使用 Photon 提交答案
-    submitAnswer(gameId, currentQuestion.question.id, {
+    socketClient?.emit('submitAnswer', {
+      roomId: gameId,
+      questionId: currentQuestion.question.id,
       answer: isCorrect ? currentQuestion.question.correctAnswer : -1,
-      cardId,
+      cardId: currentQuestion.card.id
     })
-
     setCurrentQuestion(null)
   }
 
   // 处理卡牌选择
   const handleSelectCard = (card: Card) => {
     if (!card.revealed || card.burned) return
-
-    // 如果已经选择了2张卡牌且尝试选择另一张，不允许
     if (selectedCardCount >= 2 && !card.selected) return
 
-    const cardId = playerCards.findIndex((c) => c.id === card.id)
-
-    // 使用 Photon 发送卡牌选择事件
-    sendEvent(PhotonEventCode.CARD_SELECTED, {
+    socketClient?.emit('selectCard', {
       roomId: gameId,
-      cardId,
-      selected: !card.selected,
+      cardId: card.id,
+      selected: !card.selected
     })
 
-    // 本地更新
-    setPlayerCards((cards) => cards.map((c) => (c.id === card.id ? { ...c, selected: !c.selected } : c)))
+    setPlayerCards(cards => 
+      cards.map(c => c.id === card.id ? { ...c, selected: !c.selected } : c)
+    )
   }
 
   // 确认卡牌选择并进入下一阶段
@@ -633,7 +645,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
     if (selectedCardCount !== 2) return
 
     // 使用 Photon 发送确认选择事件
-    sendEvent(PhotonEventCode.CONFIRM_SELECTION, {
+    socketClient?.emit('confirmSelection', {
       roomId: gameId,
     })
 
@@ -644,7 +656,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
   // 处理退出房间
   const handleExit = () => {
     // 尝试通过WebSocket离开房间
-    leaveRoom(gameId)
+    socketClient?.emit('leaveRoom', { roomId: gameId })
     onExit()
   }
 
@@ -686,7 +698,10 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
   const handleReady = () => {
     const newReadyState = !isReadyState
     setIsReadyState(newReadyState)
-    setReady(gameId, newReadyState)
+    socketClient?.emit('setReady', {
+      roomId: gameId,
+      isReady: newReadyState
+    })
 
     // Update local player state optimistically
     if (user) {
@@ -739,9 +754,9 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
     console.log("手动刷新房间信息 - 仅在必要时使用以避免性能问题")
 
     // 使用新的getRoom方法，强制刷新
-    const success = getCurrentRoomInfo(gameId, { forceRefresh: true })
+    socketClient?.emit('refreshRoomInfo', { roomId: gameId, forceRefresh: true })
 
-    if (!success) {
+    if (!socketClient) {
       toast.error("无法连接到游戏服务器，请重试")
     } else {
       toast.info("正在刷新房间信息...")
@@ -765,7 +780,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
     if (gameId && !roomInfoRequestedRef.current) {
       console.log("初始化时获取房间信息:", gameId)
       roomInfoRequestedRef.current = true
-      getCurrentRoomInfo(gameId)
+      socketClient?.emit('refreshRoomInfo', { roomId: gameId })
 
       // 设置超时，如果10秒内没有收到响应，显示错误
       if (loadingTimeoutRef.current) {
@@ -779,7 +794,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
         }
       }, 10000)
     }
-  }, [gameId, getCurrentRoomInfo])
+  }, [gameId, socketClient])
 
   // Find the useEffect that refreshes room info and change the interval from 60 seconds to 120 seconds
   useEffect(() => {
@@ -819,36 +834,23 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
 
   // Update room state when messages are received
   useEffect(() => {
-    if (messages.length > 0) {
-      const latestMessage = messages[messages.length - 1]
-
-      switch (latestMessage.code) {
-        case PhotonEventCode.PLAYER_JOINED:
-        case PhotonEventCode.PLAYER_LEFT:
-        case PhotonEventCode.PLAYER_READY:
-          // Update room info
-          const updatedRoom = getCurrentRoomInfo()
-          if (updatedRoom) {
-            setCurrentRoom(updatedRoom)
-          }
-          break
-        case PhotonEventCode.GAME_STARTED:
-          setGameStarted(true)
-          break
-        case PhotonEventCode.CHAT_MESSAGE:
-          if (latestMessage.content) {
-            setChatMessages((prev) => [...prev, latestMessage.content])
-          }
-          break
+    if (socketClient) {
+      const latestMessage = {
+        code: 'roomUpdated',
+        content: { room: currentRoom }
       }
+      handleWebSocketMessage(latestMessage)
     }
-  }, [messages, getCurrentRoomInfo])
+  }, [socketClient, handleWebSocketMessage])
 
   // Handle ready status
   const handleReadyToggle = () => {
     const newReadyState = !isReadyState
-    setReady(gameId, newReadyState)
     setIsReadyState(newReadyState)
+    socketClient?.emit('setReady', {
+      roomId: gameId,
+      isReady: newReadyState
+    })
   }
 
   // Handle game start
@@ -868,12 +870,12 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
       return
     }
 
-    startGame(gameId)
+    socketClient?.emit('startGame', { roomId: gameId })
   }
 
   // Handle leaving the room
   const handleLeaveRoom = () => {
-    leaveRoom(gameId)
+    socketClient?.emit('leaveRoom', { roomId: gameId })
     onExit()
   }
 
@@ -882,9 +884,9 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
     e.preventDefault()
 
     if (chatInput.trim()) {
-      sendEvent(PhotonEventCode.CHAT_MESSAGE, {
-        message: chatInput.trim(),
-        timestamp: Date.now(),
+      socketClient?.emit('chatMessage', {
+        roomId: gameId,
+        message: chatInput.trim()
       })
       setChatInput("")
     }
@@ -1316,7 +1318,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
       )}
 
       {roomInfo && (
-        <RoomDebugInfo roomInfo={roomInfo} players={players} connectionStatus={connectionStatus} user={user} />
+        <RoomDebugInfo roomInfo={roomInfo} players={players} connectionStatus={socketClient ? socketClient.connected : false} user={user} />
       )}
 
       {/* 发牌动画 */}
@@ -1326,7 +1328,7 @@ const PokerTable: React.FC<PokerTableProps> = ({ room: initialRoom, gameId, onEx
         onComplete={() => {
           setIsDealing(false)
           // 动画完成后再发送开始游戏请求
-          startGame(gameId)
+          socketClient?.emit('startGame', { roomId: gameId })
         }}
       />
     </div>
