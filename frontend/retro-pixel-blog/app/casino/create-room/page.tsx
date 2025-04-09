@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import useSocket from '@/hooks/useSocket';
+import { useSocket } from '@/app/providers/socket-provider';
 import styles from './CreateRoom.module.css';
 
 export default function CreateRoomPage() {
   const router = useRouter();
-  const { socket } = useSocket();
+  const { socketClient: socket } = useSocket();
   const [roomName, setRoomName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const [password, setPassword] = useState('');
