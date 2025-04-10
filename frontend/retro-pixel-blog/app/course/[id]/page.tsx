@@ -9,7 +9,7 @@ import GlitchEffect from "../../components/GlitchEffect"
 import { useRouter } from "next/navigation"
 
 export default function CoursePage({ params }: { params: { id: string } }) {
-  const [courseQuestions, setCourseQuestions] = useState<typeof questions>([])
+  const [courseQuestions, setCourseQuestions] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
@@ -22,14 +22,8 @@ export default function CoursePage({ params }: { params: { id: string } }) {
 
       setIsLoading(true)
       try {
-        console.log(`加载课程题目: ${params.id}`)
-        
-        // 使用辅助函数获取按难度分配的题目
         const localQuestions = getCourseQuestions(params.id)
-        console.log(`加载了 ${localQuestions.length} 道本地题目，课程ID: ${params.id}`)
         setCourseQuestions(localQuestions)
-        
-        // 如果本地数据为空，显示提示信息
         if (localQuestions.length === 0) {
           setError("此课程暂无题目数据")
         }
@@ -52,11 +46,6 @@ export default function CoursePage({ params }: { params: { id: string } }) {
         <p className="ml-4 font-pixel">loading...</p>
       </div>
     )
-  }
-
-  const handleQuestionClick = (questionId: number) => {
-    console.log(`跳转到题目: ${questionId}`)
-    router.push(`/question/${questionId}`)
   }
 
   return (
@@ -94,13 +83,13 @@ export default function CoursePage({ params }: { params: { id: string } }) {
           <div 
             key={question.id} 
             className="border border-gray-700 p-4 rounded-md cursor-pointer hover:bg-gray-800 transition-colors"
-            onClick={() => handleQuestionClick(question.id)}
+            onClick={() => router.push(`/question/${question.id}`)}
           >
-            <h3 className="font-bold text-xl mb-2">{question.title}</h3>
-            <p className="text-gray-300">{question.question.substring(0, 100)}...</p>
+            <h3 className="font-bold text-xl mb-2">{question.question}</h3>
+            <p className="text-gray-300">{question.explanation}</p>
             <div className="flex justify-between mt-2">
               <span className="text-xs bg-blue-900 px-2 py-1 rounded">difficulty: {question.difficulty}</span>
-              <span className="text-xs bg-green-900 px-2 py-1 rounded">reward: {question.tokenReward}Token</span>
+              <span className="text-xs bg-green-900 px-2 py-1 rounded">reward: {question.tokenReward} Token</span>
             </div>
           </div>
         ))}

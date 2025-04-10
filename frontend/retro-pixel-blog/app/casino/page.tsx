@@ -17,6 +17,45 @@ import RoomCreatedModal from "./components/RoomCreatedModal"
 import { toast } from "sonner"
 import SocketDebugger from "../components/SocketDebugger"
 
+const MOCK_ROOMS = [
+  {
+    id: '1',
+    name: '德州扑克房间1',
+    host: 'system',
+    players: [],
+    maxPlayers: 6,
+    status: 'waiting',
+    createdAt: new Date().toISOString(),
+    isPrivate: false,
+    password: null,
+    gameType: 'poker',
+    options: {
+      buyIn: 1000,
+      blinds: [10, 20],
+      topic: 'general',
+      difficulty: 'medium'
+    }
+  },
+  {
+    id: '2',
+    name: '德州扑克房间2',
+    host: 'system',
+    players: [],
+    maxPlayers: 6,
+    status: 'waiting',
+    createdAt: new Date().toISOString(),
+    isPrivate: false,
+    password: null,
+    gameType: 'poker',
+    options: {
+      buyIn: 2000,
+      blinds: [20, 40],
+      topic: 'blockchain',
+      difficulty: 'hard'
+    }
+  }
+];
+
 export default function CasinoPage() {
   const router = useRouter()
   const { user, isLoading: authLoading } = useAuth()
@@ -71,47 +110,29 @@ export default function CasinoPage() {
 
   // 初始加载
   useEffect(() => {
-    if (isConnected && socketClient) {
-      // 直接测试
-      console.log('直接测试 Socket.IO 事件...');
-      socketClient.emit('manual_get_rooms', {});
-      
-      // 添加一次性事件监听器
-      socketClient.on('manual_room_list', (data) => {
-        console.log('收到手动房间列表:', data);
-        setRooms(data.rooms || []);
-        setIsLoading(false);
-      });
-      
-      // 监听房间列表更新
-      socketClient.on('roomList', handleRoomList);
-      
-      // 监听房间列表更新事件
-      socketClient.on('roomListUpdated', () => {
-        console.log('接收到房间列表更新通知，正在刷新列表');
-        fetchRooms();
-      });
-      
-      // 首次加载只获取一次房间列表
-      console.log('初始加载获取房间列表');
-      fetchRooms();
-      
-      // 如果 5 秒后仍然在加载状态，手动设置为 false
-      const timeoutId = setTimeout(() => {
-        if (isLoading) {
-          console.log("初始加载超时，手动结束加载状态")
-          setIsLoading(false)
-        }
-      }, 5000)
-      
-      return () => {
-        clearTimeout(timeoutId)
-        socketClient.off('roomList', handleRoomList)
-        socketClient.off('roomListUpdated')
-        socketClient.off('manual_room_list')
-      }
-    }
-  }, [isConnected, socketClient, handleRoomList, fetchRooms])
+    console.log('使用模拟房间数据');
+    
+    // 直接设置模拟房间数据
+    setRooms(MOCK_ROOMS);
+    setIsLoading(false);
+    
+    // 模拟定期更新房间玩家数量
+    const interval = setInterval(() => {
+      setRooms(prevRooms => 
+        prevRooms.map(room => ({
+          ...room,
+          players: Array(Math.floor(Math.random() * 4) + 1).fill(null).map((_, i) => ({
+            id: `player-${i}`,
+            username: `player${Math.floor(Math.random() * 100)}`,
+            isReady: Math.random() > 0.5,
+            isHost: i === 0
+          }))
+        }))
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // 监控状态变化
   useEffect(() => {
@@ -200,21 +221,23 @@ export default function CasinoPage() {
     }
   };
 
-  // 处理加入房间
-  const handleJoinRoom = async (roomId: string, password?: string) => {
-    setIsJoiningRoom(true)
-    setError(null)
-
+  // 修改加入房间的处理函数
+  const handleJoinRoom = useCallback(async (roomId: string) => {
+    setIsJoiningRoom(true);
+    
     try {
-      joinRoom(roomId, password)
-      router.push(`/casino/room/${roomId}`)
-    } catch (err) {
-      console.error("加入房间失败:", err)
-      toast.error("加入房间失败，请稍后重试")
+      // 模拟加入房间的延迟
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // 直接导航到房间页面
+      router.push(`/casino/room/${roomId}`);
+    } catch (error) {
+      console.error('加入房间失败:', error);
+      toast.error('加入房间失败，请重试');
     } finally {
-      setIsJoiningRoom(false)
+      setIsJoiningRoom(false);
     }
-  }
+  }, [router]);
 
   // 处理进入创建的房间
   const handleEnterCreatedRoom = () => {
@@ -244,39 +267,42 @@ export default function CasinoPage() {
 
   return (
     <div className="casino-container">
-      <h1 className="casino-title">区块链知识竞赛</h1>
+      <h1 className="casino-title font-elvpixels03 text-lg">Scholar's Gamble</h1>
+      <h3 className="casino-title font-elvpixels03 text-sm">Use your knowledge as your most precious bargaining chip.</h3>
       
       <div className="casino-actions">
         <button 
           className="casino-create-button"
           onClick={() => setView("create")}
+          style={{ fontSize: "0.4rem" }}
         >
-          创建房间
+          Create Room
         </button>
         <button
           className="casino-refresh-button"
           onClick={handleRefreshRooms}
           disabled={isRefreshing}
+          style={{ fontSize: "0.4rem" }}
         >
-          {isRefreshing ? "刷新中..." : "刷新房间"}
+          {isRefreshing ? "Refreshing..." : "Refresh Room"}
         </button>
       </div>
       
       {error && (
         <div className="error-message">
           <p>{error}</p>
-          <button onClick={() => setError(null)}>关闭</button>
+          <button onClick={() => setError(null)}>Close</button>
         </div>
       )}
       
       <div className="casino-room-list">
-        <h2 className="casino-subtitle">可用房间</h2>
+        <h2 className="casino-subtitle" style={{ fontSize: "0.5rem", color: "purple" }}>Available Rooms</h2>
         
         {isLoading && rooms.length === 0 ? (
           <div className="casino-loading">
-            <p>加载中...</p>
-            <p>Socket连接状态: {isConnected ? "已连接" : "未连接"}</p>
-            <p>Socket ID: {socketClient?.id || "无"}</p>
+            <p>Loading...</p>
+            <p>Socket status: {isConnected ? "Connected" : "未连接"}</p>
+            <p>Socket ID: {socketClient?.id || "null"}</p>
             <div className="flex flex-col gap-2 mt-4">
               <button 
                 onClick={() => {
@@ -303,7 +329,7 @@ export default function CasinoPage() {
                   cursor: 'pointer'
                 }}
               >
-                强制显示房间列表
+                force show room list
               </button>
               <button 
                 onClick={() => {
@@ -327,9 +353,9 @@ export default function CasinoPage() {
           <p className="casino-error">{error}</p>
         ) : rooms.length === 0 ? (
           <div className="casino-empty">
-            <p>暂无可用房间</p>
-            <button onClick={handleRefreshRooms}>刷新列表</button>
-            <button onClick={() => setView("create")}>创建新房间</button>
+            <p>No available rooms</p>
+            <button onClick={handleRefreshRooms}>refresh list</button>
+            <button onClick={() => setView("create")}>Create new room</button>
           </div>
         ) : (
           <div className="casino-grid">
@@ -337,7 +363,7 @@ export default function CasinoPage() {
               <RoomCard 
                 key={room.id}
                 room={room}
-                onJoin={(password) => handleJoinRoom(room.id, password)}
+                onJoin={(password) => handleJoinRoom(room.id)}
               />
             ))}
           </div>
@@ -373,7 +399,7 @@ export default function CasinoPage() {
               className="font-squares text-xs"
               style={{ fontSize: "0.35rem" }}
             >
-              Back to Room List
+              Back 
             </Button>
           </GlitchEffect>
         </>

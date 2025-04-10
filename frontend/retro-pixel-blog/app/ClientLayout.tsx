@@ -2,6 +2,7 @@
 
 import "./globals.css"
 import { Press_Start_2P, VT323 } from "next/font/google"
+import EnhancedLogo from "./components/EnhancedLogo"
 import type React from "react"
 import BlinkingCursor from "./components/BlinkingCursor"
 import ThemeToggle from "./components/ThemeToggle"
@@ -27,6 +28,9 @@ import { ThemeProvider } from "next-themes"
 import BackgroundMusic from "./components/BackgroundMusic"
 // 在import部分添加扑克筹码背景组件
 import PokerChipWaterfallBackground from "./components/PokerChipWaterfallBackground"
+// Import the NeonEffect component
+import NeonAceTitleProps from "./components/TitleEffect.tsx"
+
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
@@ -114,7 +118,17 @@ export default function ClientLayout({
                 <div className="flex flex-col items-center">
                   {/* Replace ColorfulPixelLogo with AceCardsLogo */}
                   <AceCardsLogo />
-                  <CyberpunkGlitchTitle text="Crypto Quest Casino" />
+                  {/* 添加霓虹灯管特效和Ace标志 */}
+                  <NeonAceTitleProps
+                    title="Effort Ace"
+                    color="purple"
+                    suit="hearts"
+                    className="mt-4"
+                    iconSize={0}
+                    
+                  >
+                    
+                  </NeonAceTitleProps>
                   
                   {/* 简化副标题区域，移除手部图片 */}
                   <div className="mt-4 flex justify-center w-full">
@@ -127,7 +141,7 @@ export default function ClientLayout({
                   </div>
                   
                   <div className="mt-6">
-                    <ThemeToggle />
+                  <EnhancedLogo />
                   </div>
                 </div>
               </header>

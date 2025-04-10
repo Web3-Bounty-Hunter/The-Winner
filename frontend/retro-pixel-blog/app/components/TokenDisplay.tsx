@@ -7,6 +7,7 @@ import MetamaskConnect from "../../src/app/components/wallet/wallet-connect"
 import LoginButton from "./LoginButton"
 import { ethers } from "ethers"
 import { CONTRACT_ADDRESSES, BATTLE_COIN_ABI } from "../../src/app/contracts/ContractConfig"
+import SwapTokenButton from "./SwapTokenButton"
 
 
 const TokenDisplay = () => {
@@ -124,6 +125,8 @@ const TokenDisplay = () => {
           )}
         </div>
       </GlitchEffect>
+
+      <SwapTokenButton />
       
      
       

@@ -1,12 +1,27 @@
-import { getQuestions } from "@/app/lib/api-client"
+import { getQuestions } from "@/app/lib/api-client";
+import eduQuestions from "./EDUquestions.json"; // 确保路径正确
 
 export const courses = [
+  {
+    id: "edu",
+    title: "EDU Chain Basics",
+    description: "Learn the fundamentals of EDU Chain and its applications.",
+    icon: "Blocks",
+    difficulty: "Easy",
+  },
+  {
+    id: "edu",
+    title: "EDU Chain Advanced",
+    description: "Learn the fundamentals of EDU Chain and its applications.",
+    icon: "Blocks",
+    difficulty: "hard",
+  },
   {
     id: "defi",
     title: "DeFi Fundamentals",
     description: "Learn the basics of Decentralized Finance",
     icon: "Coins",
-    difficulty: "medium",
+    difficulty: "easy",
   },
   {
     id: "blockchain",
@@ -20,14 +35,31 @@ export const courses = [
     title: "Cryptocurrency 101",
     description: "Introduction to cryptocurrencies",
     icon: "Bitcoin",
+    difficulty: "easy",
   },
   {
     id: "nft",
     title: "NFT Masterclass",
     description: "Everything about Non-Fungible Tokens",
     icon: "Image",
+    difficulty: "easy",
   },
-]
+];
+
+// 修正 eduQuestions 的映射
+const mappedEduQuestions = eduQuestions.flatMap((group: any, groupIndex: number) =>
+  group.questions.map((question: any, questionIndex: number) => ({
+    id: 1000 + groupIndex * 100 + questionIndex, // 确保 ID 唯一
+    courseId: "edu",
+    title: question.question,
+    question: question.question,
+    options: question.options,
+    correctAnswer: question.correctAnswer,
+    explanation: question.explanation,
+    tokenReward: 10,
+    difficulty: group.difficulty.toLowerCase(), // 使用 JSON 中的 difficulty，并转为小写
+  }))
+);
 
 export const questions = [
   // DeFi questions
@@ -170,7 +202,7 @@ export const questions = [
     difficulty: "medium",
   },
 
-  // Additional example questions (converted from Chinese to English)
+  // Additional example questions
   {
     id: 10,
     courseId: "blockchain",
@@ -180,12 +212,12 @@ export const questions = [
       "A. A type of cryptocurrency",
       "B. A distributed ledger technology",
       "C. A programming language",
-      "D. A cloud storage service"
+      "D. A cloud storage service",
     ],
     correctAnswer: "B",
     explanation: "A blockchain is a distributed ledger technology that allows multiple parties to securely record transactions and manage information without a central authority.",
     difficulty: "easy",
-    tokenReward: 10
+    tokenReward: 10,
   },
   {
     id: 11,
@@ -196,12 +228,12 @@ export const questions = [
       "A. Storing user account balances",
       "B. Executing smart contracts",
       "C. Recording and verifying transactions",
-      "D. Storing personal user information"
+      "D. Storing personal user information",
     ],
     correctAnswer: "C",
     explanation: "The primary role of Bitcoin blocks is to record and verify transactions occurring in the network, ensuring immutability and transparency.",
     difficulty: "easy",
-    tokenReward: 10
+    tokenReward: 10,
   },
   {
     id: 12,
@@ -212,16 +244,15 @@ export const questions = [
       "A. Generating new tokens by solving mathematical problems",
       "B. Earning protocol tokens as rewards for providing liquidity",
       "C. Gaining trading fees on DEXes",
-      "D. Receiving dividends by holding governance tokens"
+      "D. Receiving dividends by holding governance tokens",
     ],
     correctAnswer: "B",
     explanation: "Liquidity mining refers to users providing liquidity, often in token pairs, to decentralized protocols in exchange for the protocol's native token rewards.",
     difficulty: "medium",
-    tokenReward: 20
+    tokenReward: 20,
   },
 
   // 区块链基础题目 - blockchain-basics
-  // 简单题目 (20道)
   {
     id: 101,
     courseId: "blockchain-basics",
@@ -231,7 +262,7 @@ export const questions = [
       "A. To create cryptocurrencies only",
       "B. To maintain a decentralized and immutable ledger",
       "C. To replace traditional databases",
-      "D. To speed up computer processing"
+      "D. To speed up computer processing",
     ],
     correctAnswer: "B",
     explanation: "Blockchain technology primarily serves as a decentralized and immutable ledger system that enables secure and transparent record-keeping without central authority.",
@@ -247,16 +278,15 @@ export const questions = [
       "A. Hash, timestamp, and transaction data",
       "B. Username and password",
       "C. CPU and memory information",
-      "D. Operating system and applications"
+      "D. Operating system and applications",
     ],
     correctAnswer: "A",
     explanation: "A blockchain block typically contains the previous block's hash, timestamp, merkle root, and transaction data.",
     tokenReward: 10,
     difficulty: "easy",
   },
-  // ... 再添加18个简单题目
 
-  // 中等难度题目 (10道)
+  // 中等难度题目
   {
     id: 201,
     courseId: "blockchain-basics",
@@ -267,16 +297,15 @@ export const questions = [
       "B. Proof of Stake (PoS)",
       "C. Delegated Proof of Stake (DPoS)",
       "D. Practical Byzantine Fault Tolerance (PBFT)",
-      "E. Verifiable Random Function (VRF)"
+      "E. Verifiable Random Function (VRF)",
     ],
     correctAnswer: "D",
     explanation: "PBFT consensus mechanisms typically provide the highest transaction throughput but sacrifice some degree of decentralization.",
     tokenReward: 20,
     difficulty: "medium",
   },
-  // ... 再添加9个中等难度题目
 
-  // 困难题目 (5道)
+  // 困难题目
   {
     id: 301,
     courseId: "blockchain-basics",
@@ -288,16 +317,15 @@ export const questions = [
       "C. Network bandwidth and latency",
       "D. Consensus algorithm complexity",
       "E. Smart contract execution",
-      "F. State explosion problem"
+      "F. State explosion problem",
     ],
     correctAnswer: "F",
     explanation: "The state explosion problem, where state data grows exponentially with chain usage, is one of the primary bottlenecks in public blockchain scalability.",
     tokenReward: 30,
     difficulty: "hard",
   },
-  // ... 再添加4个困难题目
 
-  // 地狱难度题目 (5道)
+  // 地狱难度题目
   {
     id: 401,
     courseId: "blockchain-basics",
@@ -311,17 +339,15 @@ export const questions = [
       "E. Lowering the circuit threshold value",
       "F. Using PLONKish circuit structures",
       "G. Avoiding R1CS constraints",
-      "H. Increasing the circuit depth"
+      "H. Increasing the circuit depth",
     ],
     correctAnswer: "F",
     explanation: "PLONKish circuit structures, through custom gates and lookup tables, can significantly reduce the computational resources required for generating ZK proofs, which is a mainstream direction for ZK circuit optimization.",
     tokenReward: 50,
     difficulty: "hell",
   },
-  // ... 再添加4个地狱难度题目
-  
-  // DeFi主题的题目 - defi
-  // 简单题目 (20道)
+
+  // DeFi 简单题目
   {
     id: 501,
     courseId: "defi",
@@ -331,26 +357,36 @@ export const questions = [
       "A. Lower transaction fees",
       "B. Permissionless access and transparency",
       "C. Faster transaction processing",
-      "D. Government regulation"
+      "D. Government regulation",
     ],
     correctAnswer: "B",
     explanation: "DeFi's main advantage is its permissionless nature and transparency, allowing anyone to access financial services without traditional intermediaries.",
     tokenReward: 10,
     difficulty: "easy",
   },
-  // ... 再添加19个简单题目
-  
-  // 智能合约主题 - smart-contracts
-  // 简单题目 (20道)、中等题目(10道)、困难题目(5道)、地狱难度题目(5道)
-  
-  // 共识机制主题 - consensus
-  // 简单题目 (20道)、中等题目(10道)、困难题目(5道)、地狱难度题目(5道)
-]
+
+  // 添加映射后的 EDU 题目
+  ...mappedEduQuestions,
+];
 
 // 辅助函数：按主题和难度获取问题
 export function getQuestionsByTopicAndDifficulty(topic: string, difficulty: string, count: number = 10) {
+  // 统一转为小写，解决大小写不一致问题
+  const normalizedDifficulty = difficulty.toLowerCase();
+
+  if (topic === "edu") {
+    // 从 eduQuestions 中获取匹配难度的题目
+    const matchingGroup = eduQuestions.find(
+      (group: any) => group.difficulty.toLowerCase() === normalizedDifficulty
+    );
+    if (matchingGroup) {
+      return matchingGroup.questions.slice(0, count);
+    }
+    return []; // 如果没有匹配的难度，返回空数组
+  }
+
   return questions
-    .filter(q => q.courseId === topic && q.difficulty === difficulty)
+    .filter((q) => q.courseId === topic && q.difficulty === normalizedDifficulty)
     .slice(0, count);
 }
 
@@ -360,33 +396,24 @@ export function getCourseQuestions(courseId: string) {
   const mediumQuestions = getQuestionsByTopicAndDifficulty(courseId, "medium", 10);
   const hardQuestions = getQuestionsByTopicAndDifficulty(courseId, "hard", 5);
   const hellQuestions = getQuestionsByTopicAndDifficulty(courseId, "hell", 5);
-  
+
   return [...easyQuestions, ...mediumQuestions, ...hardQuestions, ...hellQuestions];
 }
 
-// 修改fetchQuestionsFromBackend函数，优先使用本地数据而不是尝试API调用
-
-// 修改 fetchQuestionsFromBackend 函数，使用 api-client.ts 中的 getQuestions 函数
-
 export async function fetchQuestionsFromBackend(courseId: string) {
-  console.log(`Getting questions for course: ${courseId}`)
+  console.log(`Getting questions for course: ${courseId}`);
 
   try {
-    // 调用 api-client.ts 中的 getQuestions 函数
-    // 将 courseId 映射到适当的主题和难度
-    const topic = courseId // 假设 courseId 可以直接用作主题
-    const difficulty = "all" // 可以根据需要调整
+    const topic = courseId; // 假设 courseId 可以直接用作主题
+    const difficulty = "all"; // 可以根据需要调整
 
-    console.log(`Calling getQuestions with topic=${topic}, difficulty=${difficulty}`)
-    const questions = await getQuestions(topic, difficulty, 10)
+    console.log(`Calling getQuestions with topic=${topic}, difficulty=${difficulty}`);
+    const questions = await getQuestions(topic, difficulty, 10);
 
-    console.log(`Received ${questions.length} questions from API`)
-    return questions
+    console.log(`Received ${questions.length} questions from API`);
+    return questions;
   } catch (error) {
-    console.error(`Error in fetchQuestionsFromBackend:`, error)
-
-    // 重新抛出错误，让调用者处理
-    throw error
+    console.error(`Error in fetchQuestionsFromBackend:`, error);
+    throw error;
   }
 }
-

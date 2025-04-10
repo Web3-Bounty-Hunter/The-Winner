@@ -916,3 +916,27 @@ div.font-elvpixels03 {
   animation-play-state: paused;
 }
 
+/* 在 globals.css 文件中添加或修改以下样式 */
+
+.text-effect {
+  /* 添加文字阴影 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+  /* 修改渐变效果为紫色 */
+  background: linear-gradient(90deg, #8a2be2, #9370db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* 添加动画效果 */
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    text-shadow: 2px 2px 8px rgba(138, 43, 226, 0.8);
+  }
+}
+
