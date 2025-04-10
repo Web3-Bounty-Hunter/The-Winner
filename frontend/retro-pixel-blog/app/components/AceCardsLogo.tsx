@@ -171,8 +171,9 @@ const AceCardsLogo: React.FC = () => {
             <div
               className={`absolute inset-0 flex items-center justify-center ${cards[index].color} transition-opacity duration-200`}
               style={{
-                fontSize: "46px", // 增大约30%
+                fontSize: "46px",
                 lineHeight: "1",
+                transform: "translateY(-25%)",
                 textShadow:
                   cards[index].color === "text-red-500"
                     ? "0 0 5px rgba(239, 68, 68, 0.5)"

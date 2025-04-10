@@ -3,6 +3,7 @@ import ClientLayout from "./ClientLayout"
 // import PhotonScriptLoader from './components/photon-script-loader'
 import { SocketProvider } from './providers/socket-provider'
 import OCConnectWrapper from './components/OCConnectWrapper'
+import { AuthProvider } from './providers/auth-provider'
 
 export const metadata = {
   title: "Crypto Quest Casino",
@@ -28,11 +29,13 @@ export default function RootLayout({
       </head>
       <body>
         {/* 删除 PhotonScriptLoader */}
-        <SocketProvider>
-          <OCConnectWrapper opts={opts} sandboxMode={true}>
-            <ClientLayout>{children}</ClientLayout>
-          </OCConnectWrapper>
-        </SocketProvider>
+        <AuthProvider>
+          <SocketProvider>
+            <OCConnectWrapper opts={opts} sandboxMode={true}>
+              <ClientLayout>{children}</ClientLayout>
+            </OCConnectWrapper>
+          </SocketProvider>
+        </AuthProvider>
       </body>
     </html>
   )

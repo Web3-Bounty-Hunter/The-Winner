@@ -137,16 +137,15 @@ const BackgroundMusic: React.FC = () => {
           className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 cursor-pointer"
         >
           <div className="bg-gray-900 p-8 rounded-lg border border-green-400 pixelated-border max-w-md text-center">
-            <h2 className="text-green-400 font-squares text-xl mb-4">开始您的体验</h2>
-            <p className="text-green-300 font-elvpixels03 mb-6">点击此处启动背景音乐和完整体验</p>
+            <h2 className="text-green-400 font-squares text-xl mb-4">Start Your Experience And Enjoy!</h2>
             <div className="animate-pulse text-lg text-green-400">
-              点击以继续 →
+            Click to continue →
             </div>
           </div>
         </div>
       )}
 
-      <div className="fixed bottom-4 right-4 z-50 flex items-center space-x-2 bg-gray-800 bg-opacity-70 p-2 rounded-lg border border-green-400 pixelated-border">
+      <div className="fixed bottom-4 left-4 z-50 flex items-center space-x-2 bg-gray-800 bg-opacity-70 p-2 rounded-lg border border-green-400 pixelated-border">
         <audio
           ref={audioRef}
           src="/Happy Jumping Creatures (Funky Electronic Hip Hop) - Drums and Bass.wav"
@@ -155,7 +154,7 @@ const BackgroundMusic: React.FC = () => {
 
         {autoplayFailed && !showPlayPrompt && (
           <div className="animate-pulse mr-2 text-green-400 text-xs font-elvpixels03">
-            点击播放音乐
+            Click to play music
           </div>
         )}
 

@@ -74,7 +74,9 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
       return;
     }
     
-    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001";
+    // const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001";
+    const socketUrl = "http://8.218.148.159:3001";
+    // const socketUrl = "http://localhost:3001";
 
     console.log("Socket客户端: 正在连接...");
     const socket = io(socketUrl, {

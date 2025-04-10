@@ -9,27 +9,43 @@ interface DealingAnimationProps {
   isDealing: boolean
   playerCount: number
   onComplete: () => void
+  cards: Card[]
 }
 
-const DealingAnimation: React.FC<DealingAnimationProps> = ({ isDealing, playerCount, onComplete }) => {
+const DealingAnimation: React.FC<DealingAnimationProps> = ({
+  isDealing,
+  playerCount,
+  onComplete,
+  cards
+}) => {
   const dealingCompleteRef = useRef(false)
 
   useEffect(() => {
-    if (isDealing && !dealingCompleteRef.current) {
-      // 设置动画完成后的回调
-      const timer = setTimeout(() => {
-        dealingCompleteRef.current = true
+    if (isDealing) {
+      const container = document.createElement('div')
+      container.className = 'dealing-animation-container'
+      document.body.appendChild(container)
+
+      cards.forEach((card, index) => {
+        const cardElement = document.createElement('div')
+        cardElement.className = `dealing-card ${card.type}-card`
+        container.appendChild(cardElement)
+
+        setTimeout(() => {
+          cardElement.style.transition = 'all 0.5s ease'
+          const destination = getCardDestination(index, playerCount)
+          cardElement.style.transform = `translate(${destination.x}px, ${destination.y}px)`
+          
+          setTimeout(() => cardElement.remove(), 500)
+        }, index * 200)
+      })
+
+      setTimeout(() => {
+        container.remove()
         onComplete()
-      }, 2000) // 动画持续2秒
-
-      return () => clearTimeout(timer)
+      }, cards.length * 200 + 500)
     }
-
-    // 重置状态，以便下次发牌
-    if (!isDealing) {
-      dealingCompleteRef.current = false
-    }
-  }, [isDealing, onComplete])
+  }, [isDealing, playerCount, cards, onComplete])
 
   if (!isDealing) return null
 
@@ -92,54 +108,20 @@ const DealingAnimation: React.FC<DealingAnimationProps> = ({ isDealing, playerCo
 
 // 计算每张牌的目标位置
 const getCardDestination = (cardIndex: number, playerCount: number) => {
-  // 前 playerCount*2 张牌发给玩家
-  if (cardIndex < playerCount * 2) {
-    const playerIndex = Math.floor(cardIndex / 2)
-    const cardInHand = cardIndex % 2
+  const playerIndex = Math.floor(cardIndex / 2);
+  const cardInHand = cardIndex % 2;
+  const radius = 200; // 发牌半径
 
-    // 根据玩家位置计算牌的目标位置
-    switch (playerIndex) {
-      case 0: // 底部玩家 (自己)
-        return {
-          x: cardInHand === 0 ? -30 : 30,
-          y: 200,
-        }
-      case 1: // 顶部玩家
-        return {
-          x: cardInHand === 0 ? -20 : 20,
-          y: -200,
-        }
-      case 2: // 左侧玩家
-        return {
-          x: -200,
-          y: cardInHand === 0 ? -20 : 20,
-        }
-      case 3: // 右侧玩家
-        return {
-          x: 200,
-          y: cardInHand === 0 ? -20 : 20,
-        }
-      case 4: // 左上玩家
-        return {
-          x: -150,
-          y: -150,
-        }
-      case 5: // 右上玩家
-        return {
-          x: 150,
-          y: -150,
-        }
-      default:
-        return { x: 0, y: 0 }
-    }
-  } else {
-    // 剩下的5张是公共牌，放在中间
-    const communityIndex = cardIndex - playerCount * 2
-    return {
-      x: (communityIndex - 2) * 50,
-      y: 0,
-    }
-  }
+  // 计算玩家位置角度（第一个玩家在正下方）
+  const angle = ((playerIndex * (360 / playerCount)) - 90) * (Math.PI / 180);
+  
+  // 根据玩家位置计算牌的位置偏移
+  const offset = cardInHand === 0 ? -20 : 20;
+  
+  return {
+    x: Math.cos(angle) * radius + (Math.cos(angle) * offset),
+    y: Math.sin(angle) * radius + (Math.sin(angle) * offset)
+  };
 }
 
 export default DealingAnimation

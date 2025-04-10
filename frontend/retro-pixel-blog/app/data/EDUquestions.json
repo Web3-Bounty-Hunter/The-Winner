@@ -1,0 +1,457 @@
+[
+    {
+      "difficulty": "Easy",
+      "questions": [
+        {
+          "question": "What is the native token of EDU Chain?",
+          "options": [
+            "A. EDU",
+            "B. ETH",
+            "C. BTC",
+            "D. OCID"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The native token of EDU Chain is EDU, used for governance and ecosystem incentives. ETH is Ethereum's token, BTC is Bitcoin, and OCID is an identity system.",
+          "references": "https://educhain.xyz/docs/token"
+        },
+        {
+          "question": "What technology is Open Campus ID (OCID) based on?",
+          "options": [
+            "A. Soulbound Token",
+            "B. Smart Contract",
+            "C. Proof of Work",
+            "D. Proof of Stake"
+          ],
+          "correctAnswer": "A",
+          "explanation": "OCID is based on Soulbound Token technology, which is a non-transferable NFT. Other options are different blockchain technologies.",
+          "references": "https://educhain.xyz/docs/ocid"
+        },
+        {
+          "question": "On what is EDU Chain's Layer3 built?",
+          "options": [
+            "A. Arbitrum Orbit",
+            "B. Ethereum",
+            "C. Bitcoin",
+            "D. Solana"
+          ],
+          "correctAnswer": "A",
+          "explanation": "EDU Chain is a Layer3 chain built on Arbitrum Orbit, focusing on educational applications.",
+          "references": "https://educhain.xyz/docs/architecture"
+        },
+        {
+          "question": "Which of the following is a core function of EDU Chain?",
+          "options": [
+            "A. Educational NFTs",
+            "B. Game Tokens",
+            "C. Social Media",
+            "D. E-commerce Payments"
+          ],
+          "correctAnswer": "A",
+          "explanation": "EDU Chain supports the NFTization of educational content, while other options are unrelated to education.",
+          "references": "https://educhain.xyz/docs/nft"
+        },
+        {
+          "question": "Which of the following is not a use of the EDU token?",
+          "options": [
+            "A. Governance Voting",
+            "B. Paying Gas Fees",
+            "C. Purchasing Physical Goods",
+            "D. Incentivizing Creators"
+          ],
+          "correctAnswer": "C",
+          "explanation": "EDU tokens are used for governance, gas fees, and incentives, but not for purchasing physical goods.",
+          "references": "https://educhain.xyz/docs/token-utility"
+        },
+        {
+          "question": "What can OCID manage?",
+          "options": [
+            "A. Learning Achievements",
+            "B. Cryptocurrencies",
+            "C. Smart Contracts",
+            "D. Node Operations"
+          ],
+          "correctAnswer": "A",
+          "explanation": "OCID is used to manage learning achievements and skill credentials, while other options are unrelated to identity.",
+          "references": "https://educhain.xyz/docs/ocid"
+        },
+        {
+          "question": "What is the testnet RPC address of EDU Chain?",
+          "options": [
+            "A. https://rpc.open-campus-codex.gelato.digital",
+            "B. https://mainnet.educhain.xyz",
+            "C. https://testnet.ethereum.org",
+            "D. https://arbitrum.io"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The testnet RPC address is a dedicated endpoint provided by Gelato, while other options are for different networks.",
+          "references": "https://educhain.xyz/docs/testnet"
+        },
+        {
+          "question": "What is the Layer1 of EDU Chain?",
+          "options": [
+            "A. Ethereum",
+            "B. Bitcoin",
+            "C. Arbitrum",
+            "D. Polygon"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The final settlement layer of EDU Chain is Ethereum (Layer1), while Arbitrum is Layer2.",
+          "references": "https://educhain.xyz/docs/architecture"
+        },
+        {
+          "question": "Through which protocol do educational content creators earn revenue?",
+          "options": [
+            "A. Publisher NFT",
+            "B. ERC-20",
+            "C. ERC-721",
+            "D. ERC-1155"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The Publisher NFT protocol is designed specifically for content creators, while others are general token standards.",
+          "references": "https://educhain.xyz/docs/publisher-nft"
+        },
+        {
+          "question": "What is the governance mechanism of EDU Chain?",
+          "options": [
+            "A. DAO",
+            "B. PoW",
+            "C. PoS",
+            "D. DPoS"
+          ],
+          "correctAnswer": "A",
+          "explanation": "EDU token holders participate in DAO governance, while others are consensus mechanisms.",
+          "references": "https://educhain.xyz/docs/governance"
+        },
+        {
+          "question": "Which of the following is the explorer of EDU Chain?",
+          "options": [
+            "A. https://opencampus-codex.blockscout.com",
+            "B. https://etherscan.io",
+            "C. https://arbiscan.io",
+            "D. https://solscan.io"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Blockscout is the dedicated explorer for EDU Chain, while others are for different chains.",
+          "references": "https://educhain.xyz/docs/explorer"
+        },
+        {
+          "question": "Which of the following is not supported by EDU Chain?",
+          "options": [
+            "A. Educational Finance",
+            "B. Gamified Learning",
+            "C. Stock Trading",
+            "D. Skill Certification"
+          ],
+          "correctAnswer": "C",
+          "explanation": "EDU Chain focuses on educational scenarios and does not involve traditional financial trading.",
+          "references": "https://educhain.xyz/docs/features"
+        },
+        {
+          "question": "How can EDU test tokens be obtained?",
+          "options": [
+            "A. HackQuest Faucet",
+            "B. Purchase on Exchange",
+            "C. Mining",
+            "D. Staking ETH"
+          ],
+          "correctAnswer": "A",
+          "explanation": "EDU test tokens can be obtained for free through HackQuest, while other options are not applicable.",
+          "references": "https://educhain.xyz/docs/faucet"
+        },
+        {
+          "question": "What is the chain ID of EDU Chain?",
+          "options": [
+            "A. 656476",
+            "B. 1",
+            "C. 42161",
+            "D. 137"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The chain ID for the Open Campus Codex testnet is 656476, while others are for Ethereum/Arbitrum/Polygon.",
+          "references": "https://educhain.xyz/docs/testnet"
+        },
+        {
+          "question": "Which chain does the EDU cross-chain bridge support?",
+          "options": [
+            "A. Arbitrum Sepolia",
+            "B. Ethereum Mainnet",
+            "C. BSC",
+            "D. Avalanche"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The official bridge currently only supports asset transfers with Arbitrum Sepolia.",
+          "references": "https://educhain.xyz/docs/bridge"
+        },
+        {
+          "question": "Which of the following is not a function of OCID?",
+          "options": [
+            "A. Unlock Exclusive Courses",
+            "B. Verify Learning Qualifications",
+            "C. Store Cryptocurrencies",
+            "D. Manage Learning Records"
+          ],
+          "correctAnswer": "C",
+          "explanation": "OCID is an identity system and does not involve asset management functions.",
+          "references": "https://educhain.xyz/docs/ocid"
+        },
+        {
+          "question": "What is the Layer2 of EDU Chain?",
+          "options": [
+            "A. Arbitrum",
+            "B. Optimism",
+            "C. zkSync",
+            "D. Polygon"
+          ],
+          "correctAnswer": "A",
+          "explanation": "EDU Chain is built on Arbitrum Orbit (based on Arbitrum technology).",
+          "references": "https://educhain.xyz/docs/architecture"
+        },
+        {
+          "question": "What is the contract address of the EDU token on Arbitrum?",
+          "options": [
+            "A. 0x448...25384",
+            "B. 0x1f9...6e3ab",
+            "C. 0x7ea...be2d",
+            "D. 0xa0b...8691"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The official documentation specifies this contract address, while others are distractors.",
+          "references": "https://educhain.xyz/docs/token-contract"
+        },
+        {
+          "question": "Which type of DApp is not included in EDU Chain?",
+          "options": [
+            "A. Online Learning Platform",
+            "B. Skill Certification Platform",
+            "C. Decentralized Exchange",
+            "D. Educational Content Distribution"
+          ],
+          "correctAnswer": "C",
+          "explanation": "EDU Chain focuses on educational DApps and does not develop financial trading applications.",
+          "references": "https://educhain.xyz/docs/dapps"
+        },
+        {
+          "question": "What is required for governance voting on EDU Chain?",
+          "options": [
+            "A. Holding EDU Tokens",
+            "B. Running a Node",
+            "C. Staking ETH",
+            "D. Completing Courses"
+          ],
+          "correctAnswer": "A",
+          "explanation": "EDU token holders can directly participate in governance voting, while other options are unrelated.",
+          "references": "https://educhain.xyz/docs/governance"
+        }
+      ]
+    },
+    {
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "In the Publisher NFT protocol v1.2 released by EDU Chain in 2023, through what mechanism do content creators earn revenue sharing?",
+          "options": [
+            "A. Automatically allocate 70% of course sales revenue to creators through smart contracts, with 30% going to the platform",
+            "B. Adopt a dynamic proportion sharing, with 60% for the first 1000 sales, increasing to 75% thereafter",
+            "C. Use an off-chain database to record sales data and manually settle revenue once a month",
+            "D. Use Oracle networks to obtain sales data in real-time and automatically allocate a fixed 50% proportion",
+            "E. Adopt a staking EDU token mechanism, where the staking amount determines the sharing proportion (5% increase for every 1000 EDU)"
+          ],
+          "correctAnswer": ["A", "B"],
+          "explanation": "The v1.2 protocol uses smart contracts for automatic allocation (A correct) and supports dynamic proportion adjustment (B correct). Off-chain settlement (C) violates decentralization principles, Oracle solution (D) is not mentioned in the documentation, and staking mechanism (E) is a governance function rather than revenue sharing.",
+          "references": "https://educhain.xyz/docs/publisher-nft-v1.2"
+        },
+        {
+          "question": "According to EDU Chain's Q1 2024 data, which of the following are key technical features of the OCID system?",
+          "options": [
+            "A. Use ERC-721 standard to implement non-transferable Soulbound Tokens, binding user learning records",
+            "B. Support zero-knowledge proof to verify qualification authenticity and protect user privacy",
+            "C. Use IPFS to store all learning data, ensuring permanent accessibility",
+            "D. Achieve multi-chain identity interoperability through cross-chain bridging, currently supporting 5 EVM chains",
+            "E. Integrate biometric technology, requiring facial scanning to activate accounts"
+          ],
+          "correctAnswer": ["A", "B"],
+          "explanation": "OCID is based on ERC-721 SBT (A correct) and experimentally supports ZK verification (B correct). IPFS only stores metadata (C incorrect), cross-chain interoperability is not yet achieved (D incorrect), and biometric (E) does not conform to decentralization principles.",
+          "references": "https://educhain.xyz/docs/ocid-2024"
+        },
+        {
+          "question": "In the transaction processing of EDU Chain's testnet on Arbitrum Sepolia, which statements match the actual technical parameters?",
+          "options": [
+            "A. The average block confirmation time is 2.3 seconds, significantly lower than Ethereum mainnet's 12 seconds",
+            "B. Use the AnyTrust technical solution, requiring at least 2 validator nodes to sign and confirm transactions",
+            "C. The gas fee for a single transfer transaction is about 0.00005 EDU, equivalent to 1/500 of Ethereum mainnet",
+            "D. Support EIP-1559 fee mechanism, with a base fee dynamic adjustment range of 0.1-10 Gwei",
+            "E. The daily peak transaction volume reaches 270,000 transactions, with a throughput of 300 TPS"
+          ],
+          "correctAnswer": ["A", "C", "E"],
+          "explanation": "Confirmation time (A), low gas fee (C), and high throughput (E) are actual measured data. EDU Chain uses Rollup instead of AnyTrust (B incorrect), and EIP-1559 is not implemented on the testnet (D incorrect).",
+          "references": "https://educhain.xyz/docs/testnet-metrics"
+        },
+        {
+          "question": "In the EDU Chain governance proposal EDU-IP-12 of 2024, which descriptions about the token economic model modification are accurate?",
+          "options": [
+            "A. Reduce the annual inflation rate from 5% to 3%, with 2% allocated to content creator incentives",
+            "B. Introduce a token burning mechanism, using 30% of DApp transaction fees to buy back EDU",
+            "C. Adjust the staking reward curve, with an annualized 15% for the first 1 million EDU staked, and 8% for the excess",
+            "D. Require educational institutions to stake EDU tokens to publish certified courses, with a minimum of 10,000 EDU",
+            "E. Add a learning mining mechanism, where completing courses can earn EDU rewards"
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "explanation": "Inflation adjustment (A), burning mechanism (B), and staking curve (C) are all part of the proposal. Institution staking requirement (D) was not adopted, and learning mining (E) is an early feature rather than a new addition.",
+          "references": "https://gov.educhain.xyz/proposals/12"
+        },
+        {
+          "question": "In the Layer3 architecture of EDU Chain, which technical components are responsible for cross-layer transaction verification?",
+          "options": [
+            "A. State Sync synchronizer submits Layer3 transaction hashes to Layer1 in batches every 10 minutes",
+            "B. Validators need to run a light client to verify the state root of Arbitrum",
+            "C. The Fraud Proof system allows a 7-day challenge period for invalid transactions",
+            "D. The Data Availability Committee (DAC) consists of 21 nodes storing transaction data copies",
+            "E. Use zk-SNARKs to compress proofs, reducing finality confirmation time to 4 hours"
+          ],
+          "correctAnswer": ["B", "C"],
+          "explanation": "Validators (B) and fraud proof (C) are core verification mechanisms. State sync (A) should be real-time submission, DAC (D) is not used in EDU Chain, and zk proofs (E) are future plans.",
+          "references": "https://educhain.xyz/docs/layer3-architecture"
+        },
+        {
+          "question": "Analyzing the EduFi module v1.5 of EDU Chain, which loan mechanisms have been implemented?",
+          "options": [
+            "A. Credit Loan: Evaluate based on OCID learning records, with a maximum loan of 5000 EDU",
+            "B. Collateral Loan: Stake EDU tokens to borrow stablecoins, with a collateral rate of 150%",
+            "C. Flash Loan: Maximum of 500,000 EDU per transaction, with a 0.3% fee",
+            "D. Scholarship Pool: Community donation funds match 50% of learner loan amounts",
+            "E. Course Installment: Purchase high-priced courses in 6 installments, with an annual interest rate of 8%"
+          ],
+          "correctAnswer": ["B", "D", "E"],
+          "explanation": "Collateral loan (B), scholarship (D), and installment (E) are online. Credit loan (A) is in the testing phase, and flash loan (C) is not open.",
+          "references": "https://educhain.xyz/docs/edufi-v1.5"
+        },
+        {
+          "question": "Regarding the Learn2Earn DApp, a winning project of EDU Chain's 2024 hackathon, which technical details are correct?",
+          "options": [
+            "A. Use Chainlink Oracle to obtain course completion rate data to trigger reward distribution",
+            "B. Adopt ERC-1155 standard to batch distribute learning achievement NFTs, reducing gas costs by 35%",
+            "C. Integrate AA wallet solution, supporting a gas-free transaction experience",
+            "D. Develop a custom oracle network to verify offline learning activity participation",
+            "E. Implement cross-chain credit conversion, connected to 3 university credit systems"
+          ],
+          "correctAnswer": ["B", "C"],
+          "explanation": "ERC-1155 (B) and AA wallet (C) are project features. Chainlink (A) is not used, custom oracle (D) and credit system (E) are not yet completed.",
+          "references": "https://educhain.xyz/blog/hackathon-2024"
+        },
+        {
+          "question": "In the operation of EDU Chain's content moderation DAO, which rules conform to the 2024 governance framework?",
+          "options": [
+            "A. Every 100 EDU represents 1 voting right, with a minimum stake of 10,000 EDU to become a reviewer",
+            "B. Controversial content requires approval from at least 5 reviewers to be on-chain",
+            "C. Reviewers receive a reward of 50 EDU for every 100 proposals processed",
+            "D. Introduce quadratic voting to prevent large holders from monopolizing decisions",
+            "E. Removing violating content requires a 48-hour community voting period"
+          ],
+          "correctAnswer": ["A", "C"],
+          "explanation": "Staking ratio (A) and review reward (C) are current rules. Reviewer number (B), quadratic voting (D), and voting period (E) are not adopted.",
+          "references": "https://gov.educhain.xyz/docs/content-moderation"
+        },
+        {
+          "question": "Comparing the on-chain data storage solutions of EDU Chain and traditional MOOC platforms, which advantages are valid?",
+          "options": [
+            "A. On-chain course metadata ensures immutability, reducing storage costs by 40%",
+            "B. Learning record hashes are batched on-chain every 10 minutes, enhancing verifiability",
+            "C. Use decentralized storage networks to store video content, with latency below 200ms",
+            "D. Achieve real-time interaction recording through state channels, increasing TPS to 5000+",
+            "E. Certificate data is fully on-chain, with query response time <1 second"
+          ],
+          "correctAnswer": ["B"],
+          "explanation": "Only learning record on-chain (B) is true. Metadata on-chain costs are higher (A incorrect), video storage latency is actually >1s (C incorrect), state channels (D) and full query (E) are not implemented.",
+          "references": "https://educhain.xyz/whitepaper/storage"
+        },
+        {
+          "question": "According to the 2024 audit report, which security measures have been implemented in EDU Chain's smart contracts?",
+          "options": [
+            "A. Add Reentrancy Guard protection to key functions, verified by CertiK",
+            "B. Administrator permissions use multi-signature contracts, requiring 5/9 signatures to execute",
+            "C. Set a 10% fluctuation threshold for price oracles to prevent flash loan attacks",
+            "D. User assets are stored in cold wallets, with a daily hot wallet limit of 500,000 EDU",
+            "E. Contract upgrades require a 14-day time-lock public notice period"
+          ],
+          "correctAnswer": ["A", "B", "E"],
+          "explanation": "Reentrancy protection (A), multi-signature (B), and time-lock (E) are deployed. Oracles (C) are not applicable to EDU scenarios, and cold wallets (D) violate on-chain asset principles.",
+          "references": "https://educhain.xyz/audits/2024Q2"
+        }
+      ]
+    },
+    {
+      "difficulty": "Hard",
+      "questions": [
+        {
+          "question": "After EDU Chain upgraded to version 2.1 in Q2 2024, what technical challenges does its Layer3 architecture face in terms of data availability? Please analyze based on the specific implementation constraints of Arbitrum Orbit.",
+          "options": [
+            "A. Since Layer3 transactions need to be finally submitted to Ethereum Layer1, the storage cost per byte is as high as 0.0003 ETH, leading to a surge in the cost of on-chain educational content",
+            "B. When using the AnyTrust model, the Data Availability Committee (DAC) requires at least 8/11 nodes to sign and confirm, but in actual operation, 3-4 nodes are often offline, causing delays",
+            "C. The state channel batch submission interval is set to 10 minutes, but high-frequency learning behavior triggers forced submission when the state difference exceeds 1MB, increasing gas fees by 30%",
+            "D. The proof generation time of ZK-Rollup is exponentially related to the complexity of learning records, with a single course proof taking 6-8 hours, unable to meet real-time requirements",
+            "E. The metadata of content NFTs is stored on IPFS, but the insufficient coverage of nodes in China leads to an average access delay of 1.8 seconds",
+            "F. Cross-chain bridging to Arbitrum requires EDU tokens to wait for 12 block confirmations, which may delay more than 2 hours during congestion"
+          ],
+          "correctAnswer": ["A", "B"],
+          "explanation": "Ethereum storage cost (A) and DAC operation issues (B) are core challenges. State channels (C) are not used in EDU Chain, ZK proofs (D) are future plans, IPFS delay (E) and cross-chain confirmation (F) are not related to data availability.",
+          "references": "https://educhain.xyz/docs/v2.1-whitepaper"
+        },
+        {
+          "question": "Analyzing the flash loan attack event on EDU Chain's EduFi module in May 2024, how did the attacker exploit the following combination of vulnerabilities to complete arbitrage? (Multiple choices)",
+          "options": [
+            "A. Exploit the price oracle delay window to quickly borrow and sell before the course NFT collateral valuation is updated",
+            "B. Reentrancy attack on the scholarship distribution function of the smart contract, repeatedly extracting rewards up to 37 times",
+            "C. Manipulate governance proposal voting weight to temporarily modify the collateral rate parameter to 80%",
+            "D. Exploit an integer overflow vulnerability in the course installment payment contract to generate excess EDU tokens",
+            "E. Forge OCID learning records through unverified third-party plugins, falsely reporting course completion",
+            "F. Combine the signature verification flaw of the cross-chain bridge to double-stake the same batch of EDU tokens"
+          ],
+          "correctAnswer": ["A", "D"],
+          "explanation": "The actual attack exploited the oracle delay (A) and integer overflow (D). Reentrancy attack (B) has been protected, governance manipulation (C), OCID forgery (E), and cross-chain vulnerability (F) were not exploited.",
+          "references": "https://educhain.xyz/post-mortem/2024-05"
+        },
+        {
+          "question": "Comparing the on-chain credential verification mechanism of EDU Chain and traditional Learning Management Systems (LMS), which technical differences lead to the following performance?",
+          "options": [
+            "A. Use Merkle Patricia Trie to store learning records, reducing the gas cost of batch verification of 1000 certificates to 0.05 EDU",
+            "B. The SBT-based OCID system results in only 12 concurrent identity verification requests per second",
+            "C. Zero-knowledge proof verification time increases linearly with the number of courses, with each additional 100 courses adding 0.3 seconds of delay",
+            "D. The view function call of smart contracts is not subject to block gas limits, achieving millisecond response",
+            "E. Decentralized storage results in a cross-country query latency standard deviation of 480ms, far exceeding centralized databases",
+            "F. On-chain random number generation is used for anti-counterfeiting identification, each consuming about 21,000 gas"
+          ],
+          "correctAnswer": ["A", "E"],
+          "explanation": "Merkle tree optimization (A) and storage latency (E) are key differences. SBT limitation (B) is not true, ZK verification (C) is not deployed, view function (D) does not change off-chain latency, and random number (F) is unrelated to verification performance.",
+          "references": "https://educhain.xyz/tech/credentials-benchmark"
+        },
+        {
+          "question": "Evaluate the 2024 economic model adjustment proposal for EDU Chain's governance token EDU, which measures may improve token liquidity?",
+          "options": [
+            "A. Use 30% of DApp transaction fees for liquidity pool rewards, increasing APY to 125%",
+            "B. Introduce veEDU mechanism, locking for 1 year to obtain 2.5 times voting rights but restricting transfer",
+            "C. Cooperate with 5 CEXs to provide market-making subsidies, increasing daily trading volume to 1.8 million EDU",
+            "D. Mandatory use of EDU for course purchases, prohibiting stablecoin settlement channels",
+            "E. Postpone the token unlock plan of the development team by 2 years, reducing circulation by 40%",
+            "F. Create cross-chain liquidity bridging, achieving 1:1 exchange between Arbitrum/BNB chains"
+          ],
+          "correctAnswer": ["A", "C", "F"],
+          "explanation": "Liquidity rewards (A), CEX cooperation (C), and cross-chain exchange (F) directly improve liquidity. veEDU (B) reduces liquidity, mandatory payment (D) harms user experience, and unlock postponement (E) has limited impact.",
+          "references": "https://gov.educhain.xyz/proposals/edp-42"
+        },
+        {
+          "question": "For the Publisher NFT protocol v2.3 of EDU Chain, which security audit findings are key risks?",
+          "options": [
+            "A. The revenue distribution function does not check for reentrancy, which may be intercepted by malicious course contracts",
+            "B. Use SHA-256 algorithm to hash course content, with theoretical collision risk",
+            "C. Copyright verification relies on centralized API services, which may be a single point of failure",
+            "D. EIP-2981 royalty standard is not implemented, leading to third-party market sharing failure",
+            "E. Minting permission check omits address(0) check, which may produce invalid NFTs",
+            "F. Token metadata is not encrypted, leaking sensitive course outline information"
+          ],
+          "correctAnswer": ["A", "C"],
+          "explanation": "Reentrancy risk (A) and centralized dependency (C) are key vulnerabilities. Hash algorithm (B) is actually secure, royalty standard (D) is implemented, and address check (E) and metadata encryption (F) are low-risk issues.",
+          "references": "https://educhain.xyz/audits/publisher-nft-v2.3"
+        }
+      ]
+    }
+]
